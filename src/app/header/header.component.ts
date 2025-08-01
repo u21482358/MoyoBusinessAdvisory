@@ -11,5 +11,8 @@ import { RouterLink } from '@angular/router';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-
+  Submit(){
+    console.log("Submit button clicked");
+    window.alert("Submit button clicked"); // This will make it more obvious when the method is called
+  }
 }

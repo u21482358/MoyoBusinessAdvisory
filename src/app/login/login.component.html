@@ -9,13 +9,13 @@
         <form  >
           <p>
             <mat-form-field>
-              <input type="text" matInput placeholder="Username" formControlName="username">
+              <input type="text" (onkeyup)="Submit()" matInput placeholder="Username" formControlName="username">
             </mat-form-field>
           </p>
 
           <p>
             <mat-form-field>
-              <input type="password" matInput placeholder="Password" formControlName="password">
+              <input type="password" (onkeyup)="Submit()" matInput placeholder="Password" formControlName="password">
             </mat-form-field>
           </p>
 
@@ -24,7 +24,7 @@
           </p> -->
 
           <div class="button">
-            <button class="login" type="submit" mat-button>Login</button>
+            <button class="login" type="submit" (click)="Submit()" mat-button>Login</button>
             <button class="signUp" type="submit" mat-button>Sign Up</button>
           </div>
           <div class="signUp">
@@ -35,4 +35,6 @@
       </mat-card-content>
     </mat-card>
 </div>
+
+<button type="submit" (click)="'alert(hi)'">Save</button>
  </body>

@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { globalModules } from '../../globalModules';
+import { Product } from '../Models/Product';
+import { MatDialog } from '@angular/material/dialog';
+import { PlaceorderComponent } from '../placeorder/placeorder.component';
+
 
 @Component({
   selector: 'app-products',
@@ -10,10 +14,10 @@ import { globalModules } from '../../globalModules';
 })
 export class ProductsComponent {
 // dynamic rendering of mat table
-
-ELEMENT_DATA: any = [
-  {position: 1, name: 'HP Computer', type: 'Computer', price: 8000},
-  {position: 2, name: 'Dell Computer', type: 'Computer', price: 8000}
+  //readonly dialog = inject(MatDialog); // in global Modules?
+ELEMENT_DATA: Product[] = [
+  {id: 1, name: 'HP Computer', type: 'Computer', price: 8000},
+  {id: 2, name: 'Dell Computer', type: 'Computer', price: 7000}
   // {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
   // {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
   // {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
@@ -29,8 +33,16 @@ ELEMENT_DATA: any = [
  * @title Basic use of `<table mat-table>`
  */
 
-
-  displayedColumns: string[] = [ 'name', 'type', 'price'];
+// you can maybe add quantity
+  displayedColumns: string[] = [ 'name', 'type', 'price',"button"];
   dataSource = this.ELEMENT_DATA;
 
+
+   public openDialog() {
+    //console.log(element)
+    alert("hi")
+    //const dialogRef = this.dialog.open(PlaceorderComponent, {
+      //data: {product: element},
+    //});
+}
 }

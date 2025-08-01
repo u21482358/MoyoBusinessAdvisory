@@ -25,4 +25,14 @@ export class LoginComponent {
     username: new FormControl(''),
     password: new FormControl(''),
   });
+  Submit(){
+    console.log("Fuck")
+    //alert("hi")
+    //window.alert("yo")
+  }
+
+   ngOnInit() {
+    this.Submit()
+    console.log("hello")
+  }
 }
