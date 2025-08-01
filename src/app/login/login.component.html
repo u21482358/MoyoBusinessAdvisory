@@ -1,0 +1,38 @@
+      <!-- https://stackblitz.com/edit/angular-material-login-form?file=src%2Fapp%2Flogin-form.component.ts -->
+      <body>
+        
+     
+      <div class="main-div">
+      <mat-card>
+            <mat-card-title>Login</mat-card-title>
+      <mat-card-content>
+        <form  >
+          <p>
+            <mat-form-field>
+              <input type="text" matInput placeholder="Username" formControlName="username">
+            </mat-form-field>
+          </p>
+
+          <p>
+            <mat-form-field>
+              <input type="password" matInput placeholder="Password" formControlName="password">
+            </mat-form-field>
+          </p>
+
+          <!-- <p *ngIf="error" class="error">
+            {{ error }}
+          </p> -->
+
+          <div class="button">
+            <button class="login" type="submit" mat-button>Login</button>
+            <button class="signUp" type="submit" mat-button>Sign Up</button>
+          </div>
+          <div class="signUp">
+            
+          </div>
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+</div>
+ </body>

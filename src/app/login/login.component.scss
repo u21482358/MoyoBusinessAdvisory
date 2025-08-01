@@ -1,0 +1,60 @@
+//https://stackblitz.com/edit/angular-material-login-form?file=src%2Fapp%2Flogin-form.component.ts
+    
+      :host {
+        display: flex;
+        justify-content: center;
+        margin: 100px 0px;
+      }
+
+      .mat-form-field {
+        width: 100%;
+        // min-width: 300px;
+      }
+      mat-card{
+        justify-content: center;
+        
+        display: flex;
+        width: 350px;
+          height: 400px;
+      }
+
+      mat-card-title,
+      mat-card-content {
+        // height: 80%;
+        display: flex;
+        justify-content: center;
+      }
+//https://stackoverflow.com/questions/52800054/how-to-center-mat-card-in-angular-materials
+      .main-div{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+      .error {
+        padding: 16px;
+        // width: 300px;
+        color: white;
+        background-color: red;
+      }
+
+      .button {
+        display: flex;
+        
+      }
+      .login{
+        // display: flex;
+        justify-content: flex-start;
+      }
+      .signUp {
+        // display: flex;
+        justify-content: flex-end;
+      }
+      //https://stackblitz.com/edit/stackblitz-starters-2bncud?file=src%2Fmain.ts,src%2Fglobal_styles.css
+      body {
+  background-image: url('/assets/Moyo.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+ 
