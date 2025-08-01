@@ -53,8 +53,11 @@
       }
       //https://stackblitz.com/edit/stackblitz-starters-2bncud?file=src%2Fmain.ts,src%2Fglobal_styles.css
       body {
+        //margin:0px;
+ height:100%;
+ width:100%;
   background-image: url('/assets/Moyo.jpg');
-//   background-repeat: no-repeat;
-  background-size: cover;
+ background-repeat: initial;
+  background-size:cover;
 }
  

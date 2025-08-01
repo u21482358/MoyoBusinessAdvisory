@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
 // import { AuthService } from '../../core/services/auth.service';
-import { FormsModule } from '@angular/forms';
+//import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
@@ -12,6 +12,10 @@ import { NgModule } from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule} from '@angular/forms';
+import {MatBadgeModule} from '@angular/material/badge';
+
+//import { FormsModule } from '@angular/forms';
+//
 
 
 import {
@@ -21,7 +25,8 @@ import {
   MatDialogClose,
   MatDialogRef,
   MatDialogTitle,
-  MatDialogContent 
+  MatDialogContent,
+  
 } from '@angular/material/dialog';
 
 //import { MatButtonModule } from '@angular/material/button';
@@ -38,6 +43,8 @@ export const globalModules = [
   MatFormFieldModule,
   MatTableModule,
   MatInputModule,
+  MatBadgeModule
+  //FormsModule
   //BrowserModule,
   //ReactiveFormsModule
     //MAT_DIALOG_DATA,

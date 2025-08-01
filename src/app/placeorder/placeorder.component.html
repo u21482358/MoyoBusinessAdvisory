@@ -1,12 +1,30 @@
-<h2 mat-dialog-title>Hi {{data.name}}</h2>
+<h2 mat-dialog-title>Place your Order for {{data.name}}</h2>
 <mat-dialog-content>
-  <p>What's your favorite animal?</p>
+  <p>Product Name</p>
   <mat-form-field>
-    <mat-label>Favorite Animal</mat-label>
-    <input matInput  />
+    <mat-label>{{data.name}}</mat-label>
+    <input matInput disabled="true"  />
+   
   </mat-form-field>
+  <br>
+  <p>Enter Quantity</p>
+  <mat-form-field>
+    
+    <mat-label>Quantity</mat-label>
+     <input matInput (ngModelChange)="updatesubTotal($event)" [(ngModel)]="quantity"  />
+   
+  </mat-form-field>
+<br>
+    <p>Total</p>
+   <mat-form-field>
+    
+    <mat-label>Total</mat-label>
+     <input disabled="true" matInput [(ngModel)]="subTotal" />
+   
+  </mat-form-field>
+  
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button matButton (click)="onNoClick()">No Thanks</button>
-  <!-- <button matButton [mat-dialog-close]="animal()" cdkFocusInitial>Ok</button> -->
+<mat-dialog-actions style="display: flex;justify-content: center;">
+  <button  mat-button (click)="onNoClick()">No Thanks</button>
+  <button [disabled]="isDisabled"   mat-button cdkFocusInitial>Ok</button>
 </mat-dialog-actions>

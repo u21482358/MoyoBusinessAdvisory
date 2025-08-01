@@ -2,6 +2,7 @@ export class Product {
 id:any
 name:any
 type:any
+vendor:any
 price:any
 
 }
