@@ -100,7 +100,7 @@ public PlaceOrder(element:User) {
     //console.log(element)
     //alert(element.name)
 
-    alert("remember to add waititing for vendors before this")
+    alert("remember to add promises to wait for vendors to arrive.")
     const dialogRef = this.dialog.open(AddproductComponent, {
       data:this.vendors
     });
@@ -183,7 +183,7 @@ public CreateCapturer(result:any){
 public GetProducts() {
   this.productService.getProducts().subscribe({
     next: (data) => {
-      console.log(data)
+     // console.log(data)
       this.dataSource = data
     }})
    
@@ -191,7 +191,7 @@ public GetProducts() {
   public GetVendors() {
   return this.userService.getVendors().subscribe({
     next: (data:User[]) => {
-      console.log(data)
+     // console.log(data)
       this.vendors = data
       console.log(this.vendors);
     }})
@@ -205,6 +205,7 @@ console.log(element)
 
 public ngOnInit(){
   //alert("hi")
+  console.log(this.userService.activeUserRole)
   this.GetProducts()
   this.GetVendors()
   switch(this.userRole){

@@ -10,29 +10,43 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatHint } from '@angular/material/form-field';
 import { globalModules } from '../../globalModules';
 import { NgModule } from '@angular/core'; // find out about why cant import from exported
+import { UserService } from '../services/user.service';
 
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [globalModules],
+  imports: [globalModules,FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  form: FormGroup = new FormGroup({
+  loginForm: FormGroup = new FormGroup({
     username: new FormControl(''),
     password: new FormControl(''),
   });
-  Submit(){
-    console.log("Fuck")
+  constructor(private userService: UserService,private router:Router) {}
+  Login(){
+//console.log(this.loginForm.value);
+    this.userService.Login(this.loginForm.value).subscribe({
+      next: (data:any) => {
+        //console.log(data.token)
+        localStorage.setItem('token', data.token);
+        this.router.navigate(['/product']);
+      }
+
+  })
+    
+    
+    //console.log("Fuck")
+  }
     //alert("hi")
     //window.alert("yo")
-  }
+  
 
    ngOnInit() {
-    this.Submit()
-    console.log("hello")
+    //this.Submit()
+    //console.log("hello")
   }
 }

@@ -6,7 +6,7 @@ import { catchError, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-
+public activeUserRole:any
   apiUrl = 'https://localhost:7267/api/User';
     constructor(private httpClient: HttpClient) { }
   
@@ -14,6 +14,13 @@ export class UserService {
       headers: new HttpHeaders({
        'Content-Type': 'application/json'
        })
+        }
+
+        
+        Login(user: any) {
+          let path = '/Login'
+          alert(user.name)
+          return this.httpClient.post(this.apiUrl + path, user, this.httpOptions)
         }
 
         createVendor(user: any) {

@@ -11,7 +11,7 @@ import { MatHint } from '@angular/material/form-field';
 import { NgModule } from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule} from '@angular/forms';
+import { FormControl, ReactiveFormsModule} from '@angular/forms';
 import {MatBadgeModule} from '@angular/material/badge';
 
 //import { FormsModule } from '@angular/forms';
@@ -46,9 +46,12 @@ export const globalModules = [
   MatInputModule,
   MatBadgeModule,
   MatSelect,
-  MatOption
+  MatOption,
+  ReactiveFormsModule
+  //FormControl,
   //FormsModule
   //BrowserModule,
+  // should this be here
   //ReactiveFormsModule
     //MAT_DIALOG_DATA,
 //  MatDialog,
