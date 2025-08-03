@@ -1,4 +1,5 @@
       <!-- https://stackblitz.com/edit/angular-material-login-form?file=src%2Fapp%2Flogin-form.component.ts -->
+      <head> <script src="https://accounts.google.com/gsi/client" async></script></head>
       <body>
         
      
@@ -28,7 +29,8 @@
             <button class="signUp" type="submit" mat-button>Sign Up</button>
           </div>
           <div class="signUp">
-            
+            <asl-google-signin-button type='standard' size='medium'>
+</asl-google-signin-button>
           </div>
 
         </form>

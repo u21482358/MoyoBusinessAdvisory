@@ -6,9 +6,27 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AuthenticationService } from './services/authentication.service';
+import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideAnimationsAsync(),provideHttpClient(withInterceptorsFromDi()),  {provide:HTTP_INTERCEPTORS,useClass:AuthenticationService,multi:true}] // removed provideClientHydration as it was causing issues with the app
+  providers: [provideRouter(routes), provideAnimationsAsync(),provideHttpClient(withInterceptorsFromDi()),  {provide:HTTP_INTERCEPTORS,useClass:AuthenticationService,multi:true},
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              'p153781463009-47lr197g2h121om900oov4rb8e6ims0a.apps.googleusercontent.com'
+            )
+          }
+        ],
+        onError: (error) => {
+          console.error(error);
+        }
+      } as SocialAuthServiceConfig,
+}] // removed provideClientHydration as it was causing issues with the app
 };
 //https://stackoverflow.com/questions/77624853/interceptor-not-intercepting-in-angular-17
 //https://stackoverflow.com/questions/77470390/how-to-inject-application-configuration-and-add-http-interceptor-to-standalone-c

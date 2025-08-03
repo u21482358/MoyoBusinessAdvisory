@@ -11,15 +11,20 @@ import { MatHint } from '@angular/material/form-field';
 import { globalModules } from '../../globalModules';
 import { NgModule } from '@angular/core'; // find out about why cant import from exported
 import { UserService } from '../services/user.service';
+import { SocialLoginModule, SocialAuthServiceConfig, GoogleSigninButtonModule, SocialAuthService } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
+
 
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [globalModules,FormsModule],
+  imports: [globalModules,FormsModule,
+    GoogleSigninButtonModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  
 })
 export class LoginComponent {
   loginForm: FormGroup = new FormGroup({
