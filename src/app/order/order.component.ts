@@ -22,12 +22,12 @@ ELEMENT_DATA: Order[] = [
     ]
       readonly dialog = inject(MatDialog); // in global Modules?
   //https://www.w3schools.com/js/tryit.asp?filename=tryjs_array_nested | This orderLineViewModel would return from backend or got from frontend
-    orderLineData:OrderLineViewModel[] = [{product:{id:1, name: 'HP Computer', type: 'Computer',vendor:'HP', price: 8000}, quantity: 1},
-    {product:{id:2, name: 'Dell Computer', type: 'Computer',vendor:'Dell', price: 7000}, quantity: 2}];
+    orderLineData:OrderLineViewModel[] = [{product:{id:1, name: 'HP Computer', stockonHand: 52,vendor:'HP', price: 8000}, quantity: 1},
+    {product:{id:2, name: 'Dell Computer', stockonHand: 'Computer',vendor:'Dell', price: 7000}, quantity: 2}];
   
 orderData:OrderViewModel[] = [
     {orderID: 1,total:22000, orderlines: this.orderLineData}, // work out total in the backend
-      {orderID: 2,total:9000, orderlines: [{product:{id:3, name: 'Lenovo Computer', type: 'Computer',vendor:'Lenovo', price: 9000}, quantity: 1}]}]
+      {orderID: 2,total:9000, orderlines: [{product:{id:3, name: 'Lenovo Computer', stockonHand: 60,vendor:'Lenovo', price: 9000}, quantity: 1}]}]
 displayedColumns: string[] = ['id', 'placedOn','status','total',"button"];
   dataSource = this.ELEMENT_DATA;
 

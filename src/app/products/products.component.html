@@ -1,6 +1,6 @@
 <body>
     
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
 
   <!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->
@@ -15,34 +15,52 @@
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef> Name </th>
     <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <td mat-footer-cell class="mat-elevation-z0" *matFooterCellDef></td> 
   </ng-container>
 
   <!-- Weight Column -->
   <ng-container matColumnDef="type">
     <th mat-header-cell *matHeaderCellDef> Type </th>
     <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+     <td mat-footer-cell class="mat-elevation-z0" *matFooterCellDef></td>
   </ng-container>
 
   <ng-container matColumnDef="vendor">
     <th mat-header-cell *matHeaderCellDef> Vendor </th>
     <td mat-cell *matCellDef="let element"> {{element.vendor}} </td>
+     <td mat-footer-cell class="mat-elevation-z0" *matFooterCellDef></td>
   </ng-container>
 
   <!-- Symbol Column -->
   <ng-container matColumnDef="price">
     <th mat-header-cell *matHeaderCellDef> Price </th>
     <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    <td mat-footer-cell class="mat-elevation-z0" *matFooterCellDef></td>
   </ng-container>
 
   
 
-    <ng-container style="width: 10%;" matColumnDef="button">
+    <ng-container style="width: 30%;" matColumnDef="button">
     <th mat-header-cell *matHeaderCellDef>  </th>
-    <td mat-cell *matCellDef="let element"> <button (click)="openDialog(element)" mat-button>Add to Order</button> </td>
+    @if(userRole=='admin') {
+      <td mat-cell *matCellDef="let element"> <button (click)="openDialog(element)" mat-button>{{btnMessage}}</button> </td>
+    } @else {
+     <td  mat-cell *matCellDef="let element"> <button (click)="EditProduct(element)" mat-button>Edit Product</button> </td>
+    }
+    
+    <td  mat-footer-cell class="mat-elevation-z0"  *matFooterCellDef>
+      <button style="margin-right: 5px;" mat-raised-button color="primary"  mat-button>Add Vendor</button>
+      <button (click)="AddProduct()"  mat-raised-button color="primary"  mat-button>Add Product</button>
+      
+    </td>
+    <!-- <td mat-footer-cell class="mat-elevation-z0"  *matFooterCellDef><button mat-raised-button color="primary"  mat-button>Add Product</button></td> -->
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-footer-row [hidden]="!showFooter" class="mat-elevation-z0" *matFooterRowDef="displayedColumns;"></tr>
 </table>
+
+<!-- figure out how to just take away elevation from footer -->
 
 </body>

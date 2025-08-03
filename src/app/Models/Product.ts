@@ -1,10 +1,10 @@
 export class Product {
 id:any
 name:any
-type:any
+//type:any
 vendor:any
 price:any
-
+stockonHand:any
 }
 
 // constructor(id: number, username: string, email: string) {

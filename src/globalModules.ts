@@ -28,6 +28,7 @@ import {
   MatDialogContent,
   
 } from '@angular/material/dialog';
+import { MatOption, MatSelect } from '@angular/material/select';
 
 //import { MatButtonModule } from '@angular/material/button';
 // https://stackoverflow.com/questions/78129075/how-to-globally-import-some-module-in-angular-with-standalone-components
@@ -43,7 +44,9 @@ export const globalModules = [
   MatFormFieldModule,
   MatTableModule,
   MatInputModule,
-  MatBadgeModule
+  MatBadgeModule,
+  MatSelect,
+  MatOption
   //FormsModule
   //BrowserModule,
   //ReactiveFormsModule
