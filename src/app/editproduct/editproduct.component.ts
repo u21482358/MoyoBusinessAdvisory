@@ -21,16 +21,17 @@ selectedVendorId:any
 //product:any
 stockonHand:any
 isDisabledobj:any
-vendors = [
-  {name: 'HP', id: 1},
-    {name: 'Lennovo', id: 2},
-      {name: 'Dell', id: 3}]
+vendors:any = []
+// vendors = [
+//   {name: 'HP', id: 1},
+//     {name: 'Lennovo', id: 2},
+//       {name: 'Dell', id: 3}]
 
 
  readonly dialogRef = inject(MatDialogRef<EditproductComponent>);
   readonly data = inject<any>(MAT_DIALOG_DATA);
   subTotal:any = this.data.price
-  product:Product = this.data.product; // should it be readonly?
+  product:Product = new Product() // should it be readonly?
   userRole:any = this.data.userRole; // should it be readonly?
   command:any = this.data.command; // should it be readonly?
  // readonly animal = model(this.data.animal);
@@ -38,14 +39,18 @@ vendors = [
     this.dialogRef.close();
 }
 ngOnInit(){
+  console.log(this.data.vendors)
+  console.log(this.data.product.vendor)
   this.selectedVendorId = 1
+  this.product = JSON.parse(JSON.stringify(this.data.product)); // https://stackoverflow.com/questions/51448458/typescript-changes-on-variable-are-being-reflected-on-another-variable
+  //this.product.vendor = this.data.product.vendor; // Assigning the vendor object directly
   //this.selectedVendorId = this.data.product.vendor.id;
   this.quantity = this.data.product.quantity;
   this.name = this.data.product.name;
   this.price = this.data.product.price;
   //this.vendors = this.data.product.vendor.id;
   this.stockonHand = this.data.product.stockonHand;
-
+this.vendors = this.data.vendors;
 
   this.isDisabledobj = {name:true,quantity:true,vendor:true,price:true,stockonHand:true};
   switch(this.command){
@@ -77,8 +82,11 @@ ngOnInit(){
   console.log(this.selectedVendorId)
 }
   
-updatesubTotal(value:any){
- 
+Submit(){
+  // better to put the product so you dont have to run this.
+  this.product.vendor = this.vendors.find((vendor:any) => vendor.id === this.product.vendor.id);
+  console.log(this.product)
+  this.dialogRef.close(this.product);
 }
 
 }

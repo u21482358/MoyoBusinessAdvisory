@@ -27,9 +27,9 @@ apiUrl = 'https://localhost:7267/api/Product';
         }
         return throwError('Something bad happened; please try again later.'); 
       }
-      getProducts(): Observable<Product[]> {
+      getProducts(): Observable<any[]> {
         let path = '/get'
-        return this.httpClient.get<Product[]>(this.apiUrl + path, this.httpOptions)
+        return this.httpClient.get<any[]>(this.apiUrl + path, this.httpOptions)
           .pipe(
             retry(2),
             catchError(this.handleError)
@@ -37,12 +37,15 @@ apiUrl = 'https://localhost:7267/api/Product';
         }
 
         createProduct(prod: Product){
-        return this.httpClient.post(this.apiUrl, prod, this.httpOptions)
+          let path = '/post'
+          alert(prod.price)
+        return this.httpClient.post(this.apiUrl + path, prod, this.httpOptions)
       }
 
-       updateProduct(id: any, data: any): Observable<Product> {
+       updateProduct(data: any): Observable<Product> {
+        let path = '/put'
          return this.httpClient
-           .put<Product>(this.apiUrl + '/' + id, data, this.httpOptions)
+           .put<Product>(this.apiUrl + path, data, this.httpOptions)
            .pipe(
              retry(2),
              catchError(this.handleError)

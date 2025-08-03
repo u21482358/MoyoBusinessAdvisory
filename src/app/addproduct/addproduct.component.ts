@@ -4,6 +4,7 @@ import { PlaceorderComponent } from '../placeorder/placeorder.component';
 import { Product } from '../Models/Product';
 import { globalModules } from '../../globalModules';
 import { FormsModule } from '@angular/forms';
+import { User } from '../Models/User';
 
 
 @Component({
@@ -20,22 +21,41 @@ price:any
 quantity:any = 1
 isDisabled = false;
 stockonHand:any
-vendors = [
-  {name: 'HP', id: 1},
-   {name: 'Lennovo', id: 2},
-   {name: 'Dell', id: 3}
-];
+product = new Product()
+//vendor:User = new User();
+selectedVendor:any
+// vendors = [
+//   {name: 'HP', id: 1},
+//    {name: 'Lennovo', id: 2},
+//    {name: 'Dell', id: 3}
+// ];
  readonly dialogRef = inject(MatDialogRef<AddproductComponent>);
-  //readonly data = inject<Product>(MAT_DIALOG_DATA);
+  readonly data = inject<any>(MAT_DIALOG_DATA);
+  vendors = this.data; // should it be readonly?
+  vendor:any
   //subTotal:any = this.data.price
   //product:Product = this.data; // should it be readonly?
  // readonly animal = model(this.data.animal);
  onNoClick(): void {
     this.dialogRef.close();
 }
-ngoninit(){
+ngOnInit(){
+  console.log(this.vendors[0].Id);
   //alert(this.data.name)
 }
+
+Submit(){
+  console.log(this.selectedVendor)
+  //alert("hi")
+  //console.log(this.product)
+  //alert(this.product.name)
+  //alert(this.product.vendorId)
+  //alert(this.product.price)
+  //alert(this.product.stockonHand)
+  //alert(this.product.price);
+  this.dialogRef.close(this.product);
+}
+
   
 updatesubTotal(value:any){
   //console.log(this.quantity)

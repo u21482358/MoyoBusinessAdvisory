@@ -3,15 +3,15 @@
   <p>Product Name</p>
   <mat-form-field>
     <mat-label></mat-label>
-    <input [(ngModel)]="name" matInput />
+    <input [(ngModel)]="product.name" matInput />
    
   </mat-form-field>
   <p>Vendor</p>
   <mat-form-field>
     <mat-label></mat-label>
-   <mat-select>
+   <mat-select [(value)]="product.vendor">
     @for (vendor of vendors; track vendor) {
-      <mat-option [value]="vendor.id">{{vendor.name}}</mat-option>
+      <mat-option [value]="vendor">{{vendor.name}}</mat-option>
     }
   </mat-select>
   </mat-form-field>
@@ -20,7 +20,7 @@
   <mat-form-field>
     
     <mat-label>Price</mat-label>
-     <input matInput (ngModelChange)="updatesubTotal($event)" [(ngModel)]="quantity"  />
+     <input matInput (ngModelChange)="updatesubTotal($event)" [(ngModel)]="product.price"  />
    
   </mat-form-field>
 <br>
@@ -28,14 +28,14 @@
    <mat-form-field>
     
     <mat-label>Stock on Hand</mat-label>
-     <input matInput [(ngModel)]="stockonHand" />
+     <input matInput [(ngModel)]="product.stockonHand" />
    
   </mat-form-field>
   
 </mat-dialog-content>
 <mat-dialog-actions style="display: flex;justify-content: center;">
   <button  mat-button (click)="onNoClick()">No Thanks</button>
-  <button    mat-button cdkFocusInitial>Ok</button>
+  <button    mat-button (click)="Submit()" cdkFocusInitial>Ok</button>
 </mat-dialog-actions>
 
 

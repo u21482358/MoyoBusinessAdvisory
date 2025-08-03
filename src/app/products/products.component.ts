@@ -9,6 +9,8 @@ import { AddproductComponent } from '../addproduct/addproduct.component';
 import { ProductserviceService } from '../services/productservice.service';
 import { CreatevendorComponent } from '../createvendor/createvendor.component';
 import { UserService } from '../services/user.service';
+import { User } from '../Models/User';
+import e from 'express';
 //import { OnInit } from '@angular/core';
 
 @Component({
@@ -24,19 +26,21 @@ export class ProductsComponent implements OnInit {
  btnMessage:any = "Place Order";
  showFooter: boolean = true; // to show footer row
   readonly dialog = inject(MatDialog); // in global Modules?
-ELEMENT_DATA: Product[] = [
-  {id: 1, name: 'HP Computer', stockonHand: '52',vendorId:'HP', price: 8000},
-  {id: 2, name: 'Dell Computer', stockonHand: '60',vendorId:'Dell', price: 7000}
-  // {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  // {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  // {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  // {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  // {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  // {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  // {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  // {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  // {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+  vendors:any = []
+  user:User = new User();
+// ELEMENT_DATA: Product[] = [
+//   {id: 1, name: 'HP Computer',vendor:'HP', stockonHand: '52', price: 8000},
+//   {id: 2, name: 'Dell Computer',vendor:'HP', stockonHand: '60', price: 7000}
+//   // {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
+//   // {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+//   // {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
+//   // {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
+//   // {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
+//   // {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
+//   // {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
+//   // {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
+//   // {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+// ];
 
 
   constructor(private productService: ProductserviceService,private userService: UserService) { 
@@ -52,10 +56,10 @@ ELEMENT_DATA: Product[] = [
 // you can maybe add quantity
   displayedColumns: string[] = [ 'name','vendor', 'price',"button"];
   footerColumn:string[] = ['button']
-  dataSource = this.ELEMENT_DATA;
+  dataSource:any
 
 
-   public openDialog(element:any) {
+   public openDialog(element:User) {
     //console.log(element)
     //alert(element.name)
     const dialogRef = this.dialog.open(PlaceorderComponent, {
@@ -66,13 +70,26 @@ ELEMENT_DATA: Product[] = [
     //console.log(element)
     //alert(element.name)
     const dialogRef = this.dialog.open(EditproductComponent, {
-      data: {product:element,role:this.userRole, command:"edit"},
+      data: {product:element,role:this.userRole, command:"edit", vendors:this.vendors},
+    });
+
+     dialogRef.afterClosed().subscribe(result => {
+      //console.log(`Dialog result: ${result}`);
+      //alert(result.price)
+      console.log("dialog closed")
+      this.productService.updateProduct(result).subscribe({
+        next: (data) => {
+        }
+    })
+
+     // this.GetProducts();
     });
 }
   public AddProduct() {
     //console.log(element)
     //alert(element.name)
     const dialogRef = this.dialog.open(AddproductComponent, {
+      data:this.vendors
     });
     alert()
     dialogRef.afterClosed().subscribe(result => {
@@ -87,7 +104,7 @@ ELEMENT_DATA: Product[] = [
     });
 }
 
-  public AddVendort() {
+  public AddVendor() {
     //console.log(element)
     //alert(element.name)
     const dialogRef = this.dialog.open(CreatevendorComponent, {
@@ -96,9 +113,17 @@ ELEMENT_DATA: Product[] = [
     dialogRef.afterClosed().subscribe(result => {
       //console.log(`Dialog result: ${result}`);
       //alert(result.price)
+      alert(result)
       this.userService.createVendor(result).subscribe({
         next: (data) => {
-        }
+          this.userService.getVendors().subscribe({
+            next: (data) => {
+              this.vendors = data
+              //console.log(data);
+              //this.dataSource = data;
+            }
+        })
+    }
     })
 
      // this.GetProducts();
@@ -108,14 +133,30 @@ ELEMENT_DATA: Product[] = [
 public GetProducts() {
   this.productService.getProducts().subscribe({
     next: (data) => {
+      console.log(data)
       this.dataSource = data
     }})
+   
+  }
+  public GetVendors() {
+  this.userService.getVendors().subscribe({
+    next: (data:User[]) => {
+      console.log(data)
+      this.vendors = data
+      console.log(this.vendors);
+    }})
+     console.log(this.vendors);
+  }
+
+  DisplayVendorName(element:any){
+console.log(element)
   }
 
 
 public ngOnInit(){
   //alert("hi")
   this.GetProducts()
+  this.GetVendors()
   switch(this.userRole){
     case "capturer":
       this.displayedColumns = ['name', 'type','vendor', 'price',"button"];

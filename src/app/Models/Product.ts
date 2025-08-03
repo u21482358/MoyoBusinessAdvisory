@@ -1,3 +1,5 @@
+import { User } from "./User"
+
 export class Product {
 id:any
 name:any
