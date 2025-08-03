@@ -21,6 +21,7 @@ price:any
 quantity:any = 1
 isDisabled = false;
 stockonHand:any
+userSelected:any
 product = new Product()
 //vendor:User = new User();
 selectedVendor:any
@@ -46,6 +47,8 @@ ngOnInit(){
 
 Submit(){
   console.log(this.selectedVendor)
+  console.log(this.product)
+  console.log(this.product.vendor)
   //alert("hi")
   //console.log(this.product)
   //alert(this.product.name)

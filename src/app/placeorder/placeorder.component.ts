@@ -14,6 +14,7 @@ import {
 //import { NgModel } from '@angular/forms';
 //import { NgModel } from '@angular/forms';
 import { Product } from '../Models/Product';
+import { OrderLine } from '../Models/OrderLine';
 
 @Component({
   selector: 'app-placeorder',
@@ -32,6 +33,7 @@ isDisabled = false;
  readonly dialogRef = inject(MatDialogRef<PlaceorderComponent>);
   readonly data = inject<Product>(MAT_DIALOG_DATA);
   subTotal:any = this.data.price
+  orderline:OrderLine = new OrderLine() // should it be readonly?
   product:Product = this.data; // should it be readonly?
  // readonly animal = model(this.data.animal);
 ngoninit(){
@@ -50,5 +52,23 @@ updatesubTotal(value:any){
   }else{
     this.isDisabled = false;
   }
+}
+ngOnInit(){
+  //this.orderline.
+  this.orderline.quantity = 1
+  this.orderline.order.client = {id: 1, name: 'Michael Gait-Smith'}; // Example client, replace with actual client data
+this.orderline.product = this.data;
+}
+
+Submit(){
+  //console.log(this.selectedVendor)
+  //alert("hi")
+  //console.log(this.product)
+  //alert(this.product.name)
+  //alert(this.product.vendorId)
+  //alert(this.product.price)
+  //alert(this.product.stockonHand)
+  //alert(this.product.price);
+  this.dialogRef.close(this.product);
 }
 }

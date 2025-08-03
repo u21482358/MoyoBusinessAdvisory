@@ -11,6 +11,7 @@ import { CreatevendorComponent } from '../createvendor/createvendor.component';
 import { UserService } from '../services/user.service';
 import { User } from '../Models/User';
 import e from 'express';
+import { AdduserComponent } from '../adduser/adduser.component';
 //import { OnInit } from '@angular/core';
 
 @Component({
@@ -22,7 +23,7 @@ import e from 'express';
 })
 export class ProductsComponent implements OnInit {
  //dynamic rendering of mat table
- userRole:any = "capturer"
+ userRole:any = "client"
  btnMessage:any = "Place Order";
  showFooter: boolean = true; // to show footer row
   readonly dialog = inject(MatDialog); // in global Modules?
@@ -66,6 +67,14 @@ export class ProductsComponent implements OnInit {
       data: element,
     });
 }
+
+public PlaceOrder(element:User) {
+    //console.log(element)
+    //alert(element.name)
+    const dialogRef = this.dialog.open(PlaceorderComponent, {
+      data: element,
+    });
+}
   public EditProduct(element:any) {
     //console.log(element)
     //alert(element.name)
@@ -77,10 +86,12 @@ export class ProductsComponent implements OnInit {
       //console.log(`Dialog result: ${result}`);
       //alert(result.price)
       console.log("dialog closed")
+      if(result){
       this.productService.updateProduct(result).subscribe({
         next: (data) => {
         }
     })
+  }
 
      // this.GetProducts();
     });
@@ -88,17 +99,21 @@ export class ProductsComponent implements OnInit {
   public AddProduct() {
     //console.log(element)
     //alert(element.name)
+
+    alert("remember to add waititing for vendors before this")
     const dialogRef = this.dialog.open(AddproductComponent, {
       data:this.vendors
     });
-    alert()
+    //alert()
     dialogRef.afterClosed().subscribe(result => {
       //console.log(`Dialog result: ${result}`);
       //alert(result.price)
+      if(result){
       this.productService.createProduct(result).subscribe({
         next: (data) => {
         }
     })
+  }
 
      // this.GetProducts();
     });
@@ -107,14 +122,37 @@ export class ProductsComponent implements OnInit {
   public AddVendor() {
     //console.log(element)
     //alert(element.name)
-    const dialogRef = this.dialog.open(CreatevendorComponent, {
+    const dialogRef = this.dialog.open(AdduserComponent, {
     });
-    alert()
+   // alert()
     dialogRef.afterClosed().subscribe(result => {
       //console.log(`Dialog result: ${result}`);
       //alert(result.price)
-      alert(result)
-      this.userService.createVendor(result).subscribe({
+      //alert(result)
+      console.log(result)
+        switch(result.userType){
+    case "client":
+      this.CreateClient(result);
+      break;
+    case "vendor":
+     this.CreateVendor(result);
+      break;
+    case "capturer":
+      this.CreateCapturer(result);
+      //this.user.userType = 'vendor';
+      break;
+    default:
+      //this.user.userType = 'client'; // Default to client if no selection
+  }
+      if(result){
+     
+  }
+
+     // this.GetProducts();
+    });
+}
+public CreateVendor(result:any){
+   this.userService.createVendor(result.user).subscribe({
         next: (data) => {
           this.userService.getVendors().subscribe({
             next: (data) => {
@@ -125,10 +163,22 @@ export class ProductsComponent implements OnInit {
         })
     }
     })
-
-     // this.GetProducts();
-    });
 }
+public CreateCapturer(result:any){
+   this.userService.createCapturer(result.user).subscribe({
+        next: (data) => {
+        
+    }
+    })
+  }
+  public CreateClient(result:any){
+   this.userService.createClient(result.user).subscribe({
+        next: (data) => {
+        
+    }
+    })
+  }
+
 
 public GetProducts() {
   this.productService.getProducts().subscribe({
@@ -139,7 +189,7 @@ public GetProducts() {
    
   }
   public GetVendors() {
-  this.userService.getVendors().subscribe({
+  return this.userService.getVendors().subscribe({
     next: (data:User[]) => {
       console.log(data)
       this.vendors = data

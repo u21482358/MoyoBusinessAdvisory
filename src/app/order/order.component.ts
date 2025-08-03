@@ -17,8 +17,8 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class OrderComponent {
 ELEMENT_DATA: Order[] = [
-    {id: 1, clientId: 101, status: 'Delivered', placedOn: new Date('2023-10-01'), total: 15000},
-    {id: 2, clientId: 102, status: 'Pending', placedOn: new Date('2023-10-02'), total: 20000},
+    {id: 1, client: 101, status: 'Delivered', placedOn: new Date('2023-10-01'), total: 15000},
+    {id: 2, client: 102, status: 'Pending', placedOn: new Date('2023-10-02'), total: 20000},
     ]
     dataSource = this.ELEMENT_DATA;
       readonly dialog = inject(MatDialog); // in global Modules?

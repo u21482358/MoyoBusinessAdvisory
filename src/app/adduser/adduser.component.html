@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>Add User</h2>
+<mat-dialog-content>
+  <p>Name</p>
+  <mat-form-field>
+    <mat-label></mat-label>
+    <input [(ngModel)]="user.name" matInput />
+    </mat-form-field>
+   <p>Type of user</p>
+  <mat-form-field>
+    <mat-label></mat-label>
+   <mat-select [(value)]="userSelected">
+    @for (usertype of userTypes; track usertype) {
+      <mat-option [value]="usertype.name">{{usertype.name}}</mat-option>
+    }
+  </mat-select>
+  </mat-form-field>
+  
+  <p>Username</p>
+  <mat-form-field>
+    <mat-label></mat-label>
+    <input [(ngModel)]="user.username" matInput />
+  
+  </mat-form-field>
+  <br>
+  <p>Password</p>
+  <mat-form-field>
+    
+    <mat-label>Password</mat-label>
+     <input type="password" matInput [(ngModel)]="user.password"  />
+   
+  </mat-form-field>
+<br>
+  
+</mat-dialog-content>
+<mat-dialog-actions style="display: flex;justify-content: center;">
+  <button  mat-button (click)="onNoClick()">No Thanks</button>
+  <button    mat-button (click)="Submit()" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>
+
+
+
+
+

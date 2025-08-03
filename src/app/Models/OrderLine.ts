@@ -1,6 +1,9 @@
+import { Order } from "./Order"
+import { Product } from "./Product"
+
 export class OrderLine {
-orderID?:any
-productID:any
+order:Order = new Order()
+product:Product = new Product()
 quantity:any
 
 

@@ -22,6 +22,18 @@ export class UserService {
           return this.httpClient.post(this.apiUrl + path, user, this.httpOptions)
         }
 
+        createClient(user: any) {
+          let path = '/postClient'
+          alert(user.name)
+          return this.httpClient.post(this.apiUrl + path, user, this.httpOptions)
+        }
+
+        createCapturer(user: any) { // the default user type as the manager will be created by default
+          let path = '/postCapturer'
+          alert(user.name)
+          return this.httpClient.post(this.apiUrl + path, user, this.httpOptions)
+        }
+
         private handleError(error: any) {
           if (error.error instanceof ErrorEvent) {
             console.error('An error occurred:', error.error.message);

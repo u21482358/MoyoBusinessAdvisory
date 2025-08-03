@@ -9,7 +9,7 @@
   <p>Vendor</p>
   <mat-form-field>
     <mat-label></mat-label>
-   <mat-select [(value)]="product.vendor.id">
+   <mat-select [(ngModel)]="product.vendor.id">
     @for (vendor of vendors; track vendor) {
       <mat-option [value]="vendor.id">{{vendor.name}}</mat-option>
     }
