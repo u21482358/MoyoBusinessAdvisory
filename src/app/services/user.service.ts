@@ -50,6 +50,14 @@ public activeUserRole:any
             )
         }
 
+        GetVendorProducts(){
+          let path = '/getVendorProducts'
+          return this.httpClient.get(this.apiUrl + path, this.httpOptions)
+            .pipe(
+              catchError(this.handleError)
+            )
+        }
+
         private handleError(error: any) {
           if (error.error instanceof ErrorEvent) {
             console.error('An error occurred:', error.error.message);

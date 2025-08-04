@@ -58,6 +58,7 @@ export class ProductsComponent implements OnInit {
   displayedColumns: string[] = [ 'name','vendor', 'price',"button"];
   footerColumn:string[] = ['button']
   dataSource:any
+  products:any
 
 
    public openDialog(element:User) {
@@ -108,6 +109,7 @@ public PlaceOrder(element:User) {
     dialogRef.afterClosed().subscribe(result => {
       //console.log(`Dialog result: ${result}`);
       //alert(result.price)
+      alert(result.price)
       if(result){
       this.productService.createProduct(result).subscribe({
         next: (data) => {
@@ -118,6 +120,23 @@ public PlaceOrder(element:User) {
      // this.GetProducts();
     });
 }
+
+
+  public GetVendorProducts() {
+    //console.log(element)
+    //alert(element.name)
+this.userService.GetVendorProducts().subscribe((res:any)=>{
+  console.log(res.products)
+  this.products = res.products
+  this.products.forEach((element:any) => {
+    element.vendor = res
+  });
+  //this.ve
+  this.dataSource = this.products
+  console.log(this.products)
+})
+  
+  }
 
   public AddVendor() {
     //console.log(element)
@@ -205,9 +224,11 @@ console.log(element)
 
 public ngOnInit(){
   //alert("hi")
+  this.GetVendorProducts()
   console.log(this.userService.activeUserRole)
-  this.GetProducts()
-  this.GetVendors()
+  //this.GetProducts()
+  this.userRole = this.userService.activeUserRole
+  //this.GetVendors()
   switch(this.userRole){
     case "capturer":
       this.displayedColumns = ['name', 'type','vendor', 'price',"button"];
@@ -221,9 +242,10 @@ public ngOnInit(){
       this.btnMessage = "Place Order";
       break;
       case "vendor":
-        this.btnMessage = "Edit Price";
-        this.displayedColumns = ['name', 'type','vendor', 'price',"Edit Price","Edit Quantity"];
-        break;
+        //this.displayedColumns  = ['name', 'type','vendor', 'price',"button"];
+        // this.btnMessage = "Edit Price";
+        // this.displayedColumns = ['name', 'type','vendor', 'price',"Edit Price","Edit Quantity"];
+        // break;
 
 }
 }

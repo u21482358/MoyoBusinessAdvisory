@@ -37,8 +37,9 @@ apiUrl = 'https://localhost:7267/api/Product';
         }
 
         createProduct(prod: Product){
-          let path = '/post'
+          let path = '/post2'
           alert(prod.price)
+          console.log(path)
         return this.httpClient.post(this.apiUrl + path, prod, this.httpOptions)
       }
 
