@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { User } from '../Models/User';
 import { MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { AddproductComponent } from '../addproduct/addproduct.component';
@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './adduser.component.html',
   styleUrl: './adduser.component.scss'
 })
-export class AdduserComponent {
+export class AdduserComponent implements OnInit {
 name:any
 username:any
 password:any
@@ -23,7 +23,8 @@ userTypes = [{id:1,name:'client'},{id:2,name:'capturer'}, {id:3,name:'vendor'}];
 nNoClick(): void {
     this.dialogRef.close();
 }
-ngoninit(){
+ngOnInit(){
+  
   //alert(this.data.name)
 }
 

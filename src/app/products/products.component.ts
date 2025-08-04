@@ -102,6 +102,7 @@ public PlaceOrder(element:User) {
     //alert(element.name)
 
     alert("remember to add promises to wait for vendors to arrive.")
+    console.log(this.vendors)
     const dialogRef = this.dialog.open(AddproductComponent, {
       data:this.vendors
     });
@@ -141,6 +142,7 @@ this.userService.GetVendorProducts().subscribe((res:any)=>{
   public AddVendor() {
     //console.log(element)
     //alert(element.name)
+    this.GetVendors()
     const dialogRef = this.dialog.open(AdduserComponent, {
     });
    // alert()
@@ -201,9 +203,11 @@ public CreateCapturer(result:any){
 
 public GetProducts() {
   this.productService.getProducts().subscribe({
-    next: (data) => {
+    next: (data:any) => {
      // console.log(data)
-      this.dataSource = data
+     console.log(data)
+      this.dataSource = data.products
+      this.vendors = data.vendors
     }})
    
   }
@@ -224,28 +228,28 @@ console.log(element)
 
 public ngOnInit(){
   //alert("hi")
-  this.GetVendorProducts()
+  
   console.log(this.userService.activeUserRole)
   //this.GetProducts()
   this.userRole = this.userService.activeUserRole
   //this.GetVendors()
   switch(this.userRole){
     case "capturer":
-      this.displayedColumns = ['name', 'type','vendor', 'price',"button"];
-      this.btnMessage = "Edit Product";
+      this.GetProducts()
+      
       break;
       case "manager":
-      this.displayedColumns = ['name', 'type','vendor', 'price'];
-      this.btnMessage = "Add Product";
+        this.GetProducts()
+      
       break;
     case "client":
+      this.GetProducts()
       this.btnMessage = "Place Order";
       break;
       case "vendor":
-        //this.displayedColumns  = ['name', 'type','vendor', 'price',"button"];
-        // this.btnMessage = "Edit Price";
-        // this.displayedColumns = ['name', 'type','vendor', 'price',"Edit Price","Edit Quantity"];
-        // break;
+        alert("vendor")
+        this.GetVendorProducts()
+       
 
 }
 }

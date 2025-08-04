@@ -23,6 +23,7 @@ isDisabled = false;
 stockonHand:any
 userSelected:any
 product = new Product()
+vendors:any
 //vendor:User = new User();
 selectedVendor:any
 // vendors = [
@@ -32,7 +33,7 @@ selectedVendor:any
 // ];
  readonly dialogRef = inject(MatDialogRef<AddproductComponent>);
   readonly data = inject<any>(MAT_DIALOG_DATA);
-  vendors = this.data; // should it be readonly?
+   // should it be readonly?
   vendor:any
   //subTotal:any = this.data.price
   //product:Product = this.data; // should it be readonly?
@@ -41,6 +42,7 @@ selectedVendor:any
     this.dialogRef.close();
 }
 ngOnInit(){
+  this.vendors = this.data;
   console.log(this.vendors[0].Id);
   //alert(this.data.name)
 }
