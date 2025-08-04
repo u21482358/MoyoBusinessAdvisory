@@ -29,7 +29,7 @@ ngoninit(){
 
 Submit(){
 
-
+this.user.username = this.user.email
   //alert("hi")
   //alert()
   //console.log(this.product)

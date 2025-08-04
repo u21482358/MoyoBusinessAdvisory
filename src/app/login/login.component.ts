@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
 // import { AuthService } from '../../core/services/auth.service';
-import { FormControl, FormGroup, FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
@@ -14,6 +14,9 @@ import { UserService } from '../services/user.service';
 import { SocialLoginModule, SocialAuthServiceConfig, GoogleSigninButtonModule, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { Subject } from 'rxjs';
+import { error } from 'console';
+import { MatDialog } from '@angular/material/dialog';
+import { AdduserComponent } from '../adduser/adduser.component';
 
 
 // https://stackoverflow.com/questions/73255003/how-bind-angular-component-function-to-google-signin-button
@@ -37,15 +40,15 @@ declare global {
 
 export class LoginComponent implements OnInit {
   loginForm: FormGroup = new FormGroup({
-    username: new FormControl(''),
+    email: new FormControl(''),
     password: new FormControl(''),
   });
+   readonly dialog = inject(MatDialog);
   constructor(private userService: UserService,private router:Router,private authService:SocialAuthService) {}
-private extAuthChangeSub = new Subject<SocialUser>();
-  extAuthChanged:any = this.extAuthChangeSub.asObservable();
-  platform = GoogleLoginProvider.PROVIDER_ID
+
   Login(){
 //console.log(this.loginForm.value);
+this.loginForm.value.username = this.loginForm.value.email
     this.userService.Login(this.loginForm.value).subscribe({
       next: (data:any) => {
         //console.log(data.token)
@@ -65,35 +68,68 @@ private extAuthChangeSub = new Subject<SocialUser>();
 
   }
 
-
-
-  SignInWithGoogle(){
-   this.authService.signIn(this.platform).then( (response) => {
-
-console.log("reach")
-
-   }
-    
-    
-// (response) => {
-// //Get all user details
-//      console.log(platform + ' logged in user data is= ' , response);
-// //Take the details we need and store in an array
-//      this.userData.push({
-//        UserId: response.id,
-//        Provider: response.provider,
-//        FirstName: response.firstName,
-//        LastName: response.lastName,
-//        EmailAddress: response.email,
-//        PictureUrl: response.photoUrl
-//      });
-//  },
-//  (error) => {
-//    console.log(error);
-//    this.resultMessage = error;
-// }
-   )
+SignUp(){
+ const dialogRef = this.dialog.open(AdduserComponent, {
+    });
+   // alert()
+    dialogRef.afterClosed().subscribe(result => {
+      //console.log(`Dialog result: ${result}`);
+      //alert(result.price)
+      //alert(result)
+       switch(result.userType){
+    case "client":
+      this.CreateClient(result);
+      break;
+    case "vendor":
+     this.CreateVendor(result);
+      break;
+    case "capturer":
+      this.CreateCapturer(result);
+      //this.user.userType = 'vendor';
+      break;
+    default:
+      //this.user.userType = 'client'; // Default to client if no selection
   }
+      if(result){
+     
+    }
+})
+}
+
+public CreateVendor(result:any){
+   this.userService.createVendor(result.user).subscribe({
+        next: (data) => {
+          this.userService.getVendors().subscribe({
+            next: (data) => {
+              //this.vendors = data
+              //console.log(data);
+              //this.dataSource = data;
+            }
+        })
+    }
+    })
+}
+public CreateCapturer(result:any){
+   this.userService.createCapturer(result.user).subscribe({
+        next: (data) => {
+        
+    }
+    })
+  }
+  public CreateClient(result:any){
+   this.userService.createClient(result.user).subscribe({
+        next: (data) => {
+        
+    }
+    })
+  }
+
+ 
+    
+    
+
+   
+  
     //alert("hi")
     //window.alert("yo")
   
@@ -104,8 +140,18 @@ console.log("reach")
     this.authService.authState.subscribe((user: SocialUser) => {
       console.log("auth state")
       console.log(user)
-    })
+      this.userService.SignInWithGoogle(user).subscribe((res)=>{
+        console.log(res)
+this.router.navigate(['/product'])
+      },(error)=>{
+        console.log(error)
+      })
+   },(error:any) => {
+  //     console.error("Error during Google sign-in:", error);
+  //     // Handle the error appropriately
+     })
+    }
     //this.Submit()
     //console.log("hello")
-  }
+  
 }

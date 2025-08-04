@@ -1,3 +1,4 @@
+import { SocialUser } from '@abacritt/angularx-social-login';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
@@ -39,6 +40,14 @@ public activeUserRole:any
           let path = '/postCapturer'
           alert(user.name)
           return this.httpClient.post(this.apiUrl + path, user, this.httpOptions)
+        }
+
+        SignInWithGoogle(user:SocialUser) {
+          let path = '/OAuth'
+          return this.httpClient.post(this.apiUrl + path,user, this.httpOptions)
+            .pipe(
+              catchError(this.handleError)
+            )
         }
 
         private handleError(error: any) {

@@ -10,7 +10,7 @@
         <form [formGroup]="loginForm" >
           <p>
             <mat-form-field>
-              <input type="text" matInput placeholder="Username" formControlName="username">
+              <input type="text" matInput placeholder="email" formControlName="email">
             </mat-form-field>
           </p>
 
@@ -26,7 +26,7 @@
 
           <div class="button">
             <button class="login" type="submit" (click)="Login()" mat-button>Login</button>
-            <button class="signUp" type="submit" mat-button>Sign Up</button>
+            <button class="signUp" type="submit" (click)="SignUp()" mat-button>Sign Up</button>
           </div>
           <div class="signUp">
             <asl-google-signin-button type='standard' size='medium' >
