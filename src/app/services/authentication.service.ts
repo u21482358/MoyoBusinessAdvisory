@@ -36,6 +36,7 @@ intercept(req: HttpRequest<any>,
        .set('Cache-Control', 'no-cache').set('responseType', 'blob')
    
   });
+ 
 // https://v17.angular.io/guide/http-interceptor-use-cases
    return next.handle(cloned).pipe(
                  catchError((error: HttpErrorResponse) => {
@@ -48,7 +49,7 @@ intercept(req: HttpRequest<any>,
                   } // else navigate to dashboard or whatever then you need to clear local storage before the test
                  
                  )
-                
+                //
                  )
            
     }
