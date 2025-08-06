@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { globalModules } from '../../globalModules';
 import {
@@ -15,6 +15,7 @@ import {
 //import { NgModel } from '@angular/forms';
 import { Product } from '../Models/Product';
 import { OrderLine } from '../Models/OrderLine';
+import { ProductserviceService } from '../services/productservice.service';
 
 @Component({
   selector: 'app-placeorder',
@@ -23,52 +24,78 @@ import { OrderLine } from '../Models/OrderLine';
   templateUrl: './placeorder.component.html',
   styleUrl: './placeorder.component.scss'
 })
-export class PlaceorderComponent {
+export class PlaceorderComponent implements OnInit {
 name:any
 animal:any
 price:any
-quantity:any = 1
+//quantity:any
 isDisabled = false;
+productorder:any = {}
 
+constructor() { }
  readonly dialogRef = inject(MatDialogRef<PlaceorderComponent>);
-  readonly data = inject<Product>(MAT_DIALOG_DATA);
-  subTotal:any = this.data.price
+  readonly data = inject<any>(MAT_DIALOG_DATA);
+  subTotal:any = null
+  product:any
+  selectedVendorProduct:any
+  vendorproducts:any
+  vendorproduct:any
+  
   orderline:OrderLine = new OrderLine() // should it be readonly?
-  product:Product = this.data; // should it be readonly?
+  //product:Product = this.data; // should it be readonly?
  // readonly animal = model(this.data.animal);
-ngoninit(){
-  alert(this.data.name)
-}
+
   onNoClick(): void {
     this.dialogRef.close();
 }
 updatesubTotal(value:any){
-  //console.log(this.quantity)
-  //alert(value)
-  this.subTotal = value * this.data.price;
-  if(!this.subTotal){
-    //alert("Please enter a valid quantity");
-    this.isDisabled = true;
+this.selectedVendorProduct = false
+this.subTotal = null
+// https://stackoverflow.com/questions/51747397/how-to-break-foreach-loop-in-typescript/51747545
+  for (let element of this.vendorproducts) {
+    if(value > 0){
+   if (element.quantityOnHand >= value){
+    console.log(element)
+    this.selectedVendorProduct = element;
+    this.subTotal = value * element.price;
+    console.log(this.selectedVendorProduct)
+    break;
+   } 
   }else{
-    this.isDisabled = false;
+    
+    this.selectedVendorProduct = false
+    this.subTotal = null;
+    break;
   }
 }
+  
+  //this.isDisabled = false;
+}
+
+  
+ 
+
 ngOnInit(){
   //this.orderline.
+  this.productorder.numberOfItems = null
+  //this.productorder.quantity = null
+  console.log(this.data)
+  this.product=this.data.product
+  this.vendorproducts = this.data.vendorproducts
   this.orderline.quantity = 1
   this.orderline.order.client = {id: 1, name: 'Michael Gait-Smith'}; // Example client, replace with actual client data
 this.orderline.product = this.data;
 }
 
 Submit(){
-  //console.log(this.selectedVendor)
-  //alert("hi")
-  //console.log(this.product)
-  //alert(this.product.name)
-  //alert(this.product.vendorId)
-  //alert(this.product.price)
-  //alert(this.product.stockonHand)
-  //alert(this.product.price);
-  this.dialogRef.close(this.product);
+
+  this.selectedVendorProduct.product = this.product
+  delete this.selectedVendorProduct.vendor.products // could delete by casting to object without that variable?
+  //this.selectedVendorProduct.vendo = this.selectedVendor;
+  console.log(this.selectedVendorProduct)
+  delete this.selectedVendorProduct.orders
+  this.productorder.VendorProduct = this.selectedVendorProduct;
+  console.log(this.productorder)
+ this.dialogRef.close(this.productorder);
 }
 }

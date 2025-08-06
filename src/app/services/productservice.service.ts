@@ -47,6 +47,31 @@ apiUrl = 'https://localhost:7267/api/Product';
         return this.httpClient.post(this.apiUrl + path, prod, this.httpOptions)
       }
 
+      GetVendorsForProduct(product:any){
+        let path = '/getVendorsForProduct'
+        return this.httpClient.post<any[]>(this.apiUrl + path,product, this.httpOptions)
+          .pipe(
+            retry(2),
+            catchError(this.handleError)
+          )
+      }
+
+       AssignProductToVendor(prod: any){
+          let path = '/assignProductToVendor'
+          alert(prod.price)
+          if(prod.vendor.products)[
+            delete prod.vendor.products
+          ]
+          console.log(prod)
+          console.log(path)
+        return this.httpClient.post(this.apiUrl + path, prod, this.httpOptions)
+      }
+
+      ReturnUnassignedVendorstoproduct(prod:any){
+        let path = '/UnassignedVendors'
+   return this.httpClient.post(this.apiUrl + path, prod, this.httpOptions)
+}
+
        updateProduct(data: any): Observable<Product> {
         let path = '/put'
          return this.httpClient

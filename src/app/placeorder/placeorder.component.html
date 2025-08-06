@@ -1,8 +1,8 @@
-<h2 mat-dialog-title>Place your Order for {{data.name}}</h2>
+<h2 mat-dialog-title>Place your Order for {{product.name}}</h2>
 <mat-dialog-content>
   <p>Product Name</p>
   <mat-form-field>
-    <mat-label>{{data.name}}</mat-label>
+    <mat-label>{{product.name}}</mat-label>
     <input matInput disabled="true"  />
    
   </mat-form-field>
@@ -11,14 +11,14 @@
   <mat-form-field>
     
     <mat-label>Quantity</mat-label>
-     <input matInput (ngModelChange)="updatesubTotal($event)" [(ngModel)]=" orderline.quantity"  />
+     <input matInput (ngModelChange)="updatesubTotal($event)" [(ngModel)]="productorder.numberOfItems"  />
    
   </mat-form-field>
 <br>
     <p>Total</p>
    <mat-form-field>
     
-    <mat-label>Total</mat-label>
+    <mat-label>No Total</mat-label>
      <input disabled="true" matInput [(ngModel)]="subTotal" />
    
   </mat-form-field>
@@ -26,5 +26,5 @@
 </mat-dialog-content>
 <mat-dialog-actions style="display: flex;justify-content: center;">
   <button  mat-button (click)="onNoClick()">No Thanks</button>
-  <button [disabled]="isDisabled"   mat-button cdkFocusInitial>Ok</button>
+  <button [disabled]="!selectedVendorProduct" (click)="Submit()"  mat-button cdkFocusInitial>Ok</button>
 </mat-dialog-actions>

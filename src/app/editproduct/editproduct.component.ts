@@ -57,7 +57,7 @@ this.vendors = this.data.vendors;
     case "Captureredit":
       this.isDisabledobj.name = false; // Disable name field
       this.isDisabledobj.vendor = false; // Disable price field
-      this.stockonHand = this.product.stockonHand;
+     // this.stockonHand = this.product.stockonHand;
       
       break;
     case "price":
@@ -84,7 +84,7 @@ this.vendors = this.data.vendors;
   
 Submit(){
   // better to put the product so you dont have to run this.
-  this.product.vendor = this.vendors.find((vendor:any) => vendor.id === this.product.vendor.id);
+  //this.product.vendor = this.vendors.find((vendor:any) => vendor.id === this.product.vendor.id);
   console.log(this.product)
   this.dialogRef.close(this.product);
 }

@@ -12,6 +12,7 @@ import { UserService } from '../services/user.service';
 import { User } from '../Models/User';
 import e from 'express';
 import { AdduserComponent } from '../adduser/adduser.component';
+import { OrderService } from '../services/order.service';
 //import { OnInit } from '@angular/core';
 
 @Component({
@@ -23,7 +24,7 @@ import { AdduserComponent } from '../adduser/adduser.component';
 })
 export class ProductsComponent implements OnInit {
  //dynamic rendering of mat table
- userRole:any = "client"
+ userRole:any = "capturer"
  btnMessage:any = "Place Order";
  showFooter: boolean = true; // to show footer row
   readonly dialog = inject(MatDialog); // in global Modules?
@@ -44,7 +45,7 @@ export class ProductsComponent implements OnInit {
 // ];
 
 
-  constructor(private productService: ProductserviceService,private userService: UserService) { 
+  constructor(private productService: ProductserviceService,private userService: UserService,private orderService:OrderService) { 
     //productService = {} as ProductService;
 
   }
@@ -55,7 +56,7 @@ export class ProductsComponent implements OnInit {
  */
 
 // you can maybe add quantity
-  displayedColumns: string[] = [ 'name','vendor', 'price',"button"];
+  displayedColumns: any// = [ 'name','vendor', 'price',"button"];
   footerColumn:string[] = ['button']
   dataSource:any
   products:any
@@ -69,12 +70,32 @@ export class ProductsComponent implements OnInit {
     });
 }
 
-public PlaceOrder(element:User) {
+public PlaceOrder(product:any) {
     //console.log(element)
     //alert(element.name)
-    const dialogRef = this.dialog.open(PlaceorderComponent, {
-      data: element,
+    // API Call
+    this.productService.GetVendorsForProduct(product).subscribe((vendorproducts:any)=>{
+      console.log(vendorproducts)
+ const dialogRef = this.dialog.open(PlaceorderComponent, {
+      data: {product:product,vendorproducts:vendorproducts}
     });
+
+     dialogRef.afterClosed().subscribe(result => {
+      //console.log(`Dialog result: ${result}`);
+      //alert(result.price)
+      console.log(result)
+      console.log("dialog closed")
+      if(result){
+      this.orderService.PlaceOrder(result).subscribe({
+        next: (data:any) => {
+        }
+    })
+  }
+
+     // this.GetProducts();
+    });
+    })
+   
 }
   public EditProduct(element:any) {
     //console.log(element)
@@ -97,6 +118,9 @@ public PlaceOrder(element:User) {
      // this.GetProducts();
     });
 }
+
+
+
   public AddProduct() {
     //console.log(element)
     //alert(element.name)
@@ -104,7 +128,7 @@ public PlaceOrder(element:User) {
     alert("remember to add promises to wait for vendors to arrive.")
     console.log(this.vendors)
     const dialogRef = this.dialog.open(AddproductComponent, {
-      data:this.vendors
+      data:{vendors:this.vendors,products:this.products,action:'add'}
     });
     //alert()
     dialogRef.afterClosed().subscribe(result => {
@@ -120,6 +144,43 @@ public PlaceOrder(element:User) {
 
      // this.GetProducts();
     });
+}
+
+
+
+
+ AssignVendor(product:any) {
+    //console.log(element)
+    //alert(element.name)
+  let val = this.productService.ReturnUnassignedVendorstoproduct(product).subscribe((vendors)=>{
+ const dialogRef = this.dialog.open(AddproductComponent, {
+      data: {vendors:vendors,product:product,action:'assign'}
+    });
+
+     dialogRef.afterClosed().subscribe(result => {
+      //console.log(`Dialog result: ${result}`);
+      //alert(result.price)
+      alert(result.price)
+      if(result){
+      this.productService.AssignProductToVendor(result).subscribe({
+        next: (data) => {
+        }
+    })
+  }
+
+     // this.GetProducts();
+    });
+
+  })
+
+  
+    // NB NB NB NB NB get all vendors that are not on product.
+    alert("remember to add promises to wait for vendors to arrive.")
+    console.log(this.vendors)
+   
+  
+    //alert()
+   
 }
 
 
@@ -139,7 +200,7 @@ this.userService.GetVendorProducts().subscribe((res:any)=>{
   
   }
 
-  public AddVendor() {
+  public AddUser() {
     //console.log(element)
     //alert(element.name)
     this.GetVendors()
@@ -151,6 +212,7 @@ this.userService.GetVendorProducts().subscribe((res:any)=>{
       //alert(result.price)
       //alert(result)
       console.log(result)
+      //this.userRole = result.userType
         switch(result.userType){
     case "client":
       this.CreateClient(result);
@@ -228,11 +290,12 @@ console.log(element)
 
 public ngOnInit(){
   //alert("hi")
-  
+  this.displayedColumns = ['name','button']
   console.log(this.userService.activeUserRole)
-  //this.GetProducts()
+  this.GetProducts()
   this.userRole = this.userService.activeUserRole
   //this.GetVendors()
+  console.log(this.userRole)
   switch(this.userRole){
     case "capturer":
       this.GetProducts()

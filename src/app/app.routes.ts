@@ -7,6 +7,8 @@ import { AuthGuard } from './guards/auth.guard';
 export const routes: Routes = [
   //{ path: 'login', component: LoginComponent }, // think having two of these was causing problems...
   { path: '', component: LoginComponent, pathMatch: 'full' },
-  { path: 'product', component: ProductsComponent,canActivate: [AuthGuard] },
-  { path: 'order', component: OrderComponent,canActivate: [AuthGuard] }
+   { path: 'product', component: ProductsComponent,canActivate: [AuthGuard] },
+   { path: 'order', component: OrderComponent,canActivate: [AuthGuard] }
+   // { path: 'product', component: ProductsComponent },
+ // { path: 'order', component: OrderComponent }
 ];

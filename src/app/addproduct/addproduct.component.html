@@ -1,15 +1,29 @@
-<h2 mat-dialog-title>Add Product</h2>
+<h2 mat-dialog-title>{{title}}</h2>
 <mat-dialog-content>
-  <p>Product Name</p>
-  <mat-form-field>
+  
+<p>Product Name</p>
+
+<mat-form-field>
     <mat-label></mat-label>
-    <input [(ngModel)]="product.name" matInput />
+    @if(action =='add'){
+    <input (onkeyup)="OnKeyup($event)" [(ngModel)]="product.name" matInput />
+    }@else if(action=='assign'){
+      <input (onkeyup)="OnKeyup($event)" disabled="true" [(ngModel)]="product.name" matInput />
+    }
+  
    
   </mat-form-field>
+
+  
+
+
+
+
+   
   <p>Vendor</p>
   <mat-form-field>
     <mat-label></mat-label>
-   <mat-select [(ngModel)]="product.vendor">
+   <mat-select [(ngModel)]="vendorproduct.vendor">
     @for (vendor of vendors; track vendor) {
       <mat-option [value]="vendor">{{vendor.name}}</mat-option>
     }
@@ -20,7 +34,7 @@
   <mat-form-field>
     
     <mat-label>Price</mat-label>
-     <input matInput (ngModelChange)="updatesubTotal($event)" [(ngModel)]="product.price"  />
+     <input matInput (ngModelChange)="updatesubTotal($event)" [(ngModel)]="vendorproduct.price"  />
    
   </mat-form-field>
 <br>
@@ -28,10 +42,10 @@
    <mat-form-field>
     
     <mat-label>Stock on Hand</mat-label>
-     <input matInput [(ngModel)]="product.stockonHand" />
+     <input matInput [(ngModel)]="vendorproduct.quantityonhand"  />
    
   </mat-form-field>
-  
+
 </mat-dialog-content>
 <mat-dialog-actions style="display: flex;justify-content: center;">
   <button  mat-button (click)="onNoClick()">No Thanks</button>

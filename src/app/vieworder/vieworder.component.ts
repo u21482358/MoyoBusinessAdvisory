@@ -30,8 +30,8 @@ ngoninit(){
   alert("hi")
   this.data.orderlines?.forEach((orderline:OrderLineViewModel) => {
     //alert(orderline);
-    var num = orderline.product?.price * orderline.quantity
-    this.arr.push(num);
+    //var num = orderline.product?.price * orderline.quantity
+    //this.arr.push(num);
     //this.total = this.total + (orderline.product?.price * orderline.quantity);
   //alert("hi")
   // console.log(this.dataSource);
