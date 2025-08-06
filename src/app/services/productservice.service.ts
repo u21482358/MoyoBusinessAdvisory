@@ -48,7 +48,7 @@ apiUrl = 'https://localhost:7267/api/Product';
       }
 
       GetVendorsForProduct(product:any){
-        let path = '/getVendorsForProduct'
+        let path = '/getVendorsOfferingProduct'
         return this.httpClient.post<any[]>(this.apiUrl + path,product, this.httpOptions)
           .pipe(
             retry(2),
