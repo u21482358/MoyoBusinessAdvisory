@@ -8,6 +8,7 @@ import { OrderLineViewModel } from '../Models/OrderlineViewModel';
 import { VieworderComponent } from '../vieworder/vieworder.component';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderService } from '../services/order.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-order',
@@ -17,21 +18,19 @@ import { OrderService } from '../services/order.service';
   styleUrl: './order.component.scss'
 })
 export class OrderComponent implements OnInit {
-ELEMENT_DATA: Order[] = [
-    {id: 1, client: 101, status: 'Delivered', placedOn: new Date('2023-10-01'), total: 15000},
-    {id: 2, client: 102, status: 'Pending', placedOn: new Date('2023-10-02'), total: 20000},
-    ]
-    dataSource = this.ELEMENT_DATA;
+
+    dataSource:any
+    activeUserRole:any
       readonly dialog = inject(MatDialog); // in global Modules?
   //https://www.w3schools.com/js/tryit.asp?filename=tryjs_array_nested | This orderLineViewModel would return from backend or got from frontend
 //     orderLineData:OrderLineViewModel[] = [{product:{id:1, name: 'HP Computer',vendor:'HP', stockonHand: 52, price: 8000}, quantity: 1},
 //     {product:{id:2, name: 'Dell Computer',vendor:'HP', stockonHand: 'Computer', price: 7000}, quantity: 2}];
-constructor( private orderService: OrderService) {
+constructor( private orderService: OrderService,private userService: UserService) {
 }
 // orderData:OrderViewModel[] = [
 //     {orderID: 1,total:22000, orderlines: this.orderLineData}, // work out total in the backend
 //       {orderID: 2,total:9000, orderlines: [{product:{id:3, name: 'Lenovo Computer',vendor:'HP', stockonHand: 60, price: 9000}, quantity: 1}]}]
-displayedColumns: string[] = ['id', 'placedOn','status','total',"button"];
+displayedColumns: string[] = ['date', 'product','quantity','price',"total"];
 //   dataSource = this.ELEMENT_DATA;
 
 
@@ -52,8 +51,30 @@ displayedColumns: string[] = ['id', 'placedOn','status','total',"button"];
 
   ngOnInit(): void {
     this.orderService.getOrders().subscribe((data: any) => {
+this.activeUserRole = this.userService.activeUserRole;
+      switch(this.userService.activeUserRole){
+        case "capturer":
+          this.displayedColumns = ['date','client','vendor', 'product','quantity','price',"total"];
+          break;
+        case "client":
+           this.displayedColumns = ['date', 'product','quantity','price',"total"];
+          break;
+        case "vendor":
+           this.displayedColumns = ['date','client', 'product','quantity','price',"total"];
+          break;
+        default:
+          //this.btnMessage = "Place Order";
+          break;
+      }
       console.log(data)
+      this.dataSource = data;
   })
+  
 
+}
+
+CalcTotal(quantity:any,price:any){
+
+return price * quantity;
 }
 }

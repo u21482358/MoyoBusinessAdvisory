@@ -97,11 +97,19 @@ public PlaceOrder(product:any) {
     })
    
 }
-  public EditProduct(element:any) {
+
+// public FetchPriceAndQuantity(element:any){
+//   this.productService.GetVendorsForProduct(this.product).subscribe((vendorproducts:any)=>{
+//       console.log(vendorproducts)
+//       this.dataSource = vendorproducts
+//     });
+//   }
+
+  public EditProduct(element:any,isQuantityEdited: boolean) {
     //console.log(element)
     //alert(element.name)
     const dialogRef = this.dialog.open(EditproductComponent, {
-      data: {product:element,role:this.userRole, command:"edit", vendors:this.vendors},
+      data: {product:element, isQuantityEdited:isQuantityEdited},
     });
 
      dialogRef.afterClosed().subscribe(result => {

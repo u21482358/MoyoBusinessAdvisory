@@ -22,6 +22,7 @@ selectedVendorId:any
 stockonHand:any
 isDisabledobj:any
 vendors:any = []
+message:any
 // vendors = [
 //   {name: 'HP', id: 1},
 //     {name: 'Lennovo', id: 2},
@@ -35,14 +36,19 @@ vendors:any = []
   userRole:any = this.data.userRole; // should it be readonly?
   command:any = this.data.command; // should it be readonly?
  // readonly animal = model(this.data.animal);
+ vendorproduct:any
+ isQuantityEdit:any
  onNoClick(): void {
     this.dialogRef.close();
 }
 ngOnInit(){
+console.log(this.data)
+this.vendorproduct = JSON.parse(JSON.stringify(this.data.product));
+this.isQuantityEdit = this.data.isQuantityEdited;
   console.log(this.data.vendors)
   console.log(this.data.product.vendor)
   this.selectedVendorId = 1
-  this.product = JSON.parse(JSON.stringify(this.data.product)); // https://stackoverflow.com/questions/51448458/typescript-changes-on-variable-are-being-reflected-on-another-variable
+  //this.product = JSON.parse(JSON.stringify(this.data.product)); // https://stackoverflow.com/questions/51448458/typescript-changes-on-variable-are-being-reflected-on-another-variable
   //this.product.vendor = this.data.product.vendor; // Assigning the vendor object directly
   //this.selectedVendorId = this.data.product.vendor.id;
   this.quantity = this.data.product.quantity;
@@ -86,7 +92,7 @@ Submit(){
   // better to put the product so you dont have to run this.
   //this.product.vendor = this.vendors.find((vendor:any) => vendor.id === this.product.vendor.id);
   console.log(this.product)
-  this.dialogRef.close(this.product);
+  this.dialogRef.close(this.vendorproduct);
 }
 
 }

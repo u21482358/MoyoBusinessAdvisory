@@ -1,42 +1,36 @@
-<h2 mat-dialog-title>Edit Product</h2>
+<h2 mat-dialog-title> {{message}}</h2>
 <mat-dialog-content>
   <p>Product Name</p>
   <mat-form-field>
-    <mat-label></mat-label>
-    <input [(ngModel)]="product.name" matInput />
+    <mat-label>{{vendorproduct.name}}</mat-label>
+    <input matInput disabled="true"  />
    
   </mat-form-field>
-  <p>Vendor</p>
-  <!-- <mat-form-field>
-    <mat-label></mat-label>
-   <mat-select [(ngModel)]="product.vendor.id">
-    @for (vendor of vendors; track vendor) {
-      <mat-option [value]="vendor.id">{{vendor.name}}</mat-option>
-    }
-  </mat-select>
-  </mat-form-field> -->
   <br>
-  <!-- <p>Enter Price (R)</p>
+  <p>Enter Price</p>
   <mat-form-field>
     
     <mat-label>Price</mat-label>
-     <input matInput [(ngModel)]="product.price"  />
+     <input matInput [disabled]="isQuantityEdit" [(ngModel)]="vendorproduct.price"  />
    
-  </mat-form-field> -->
-<br>
-    <p>Stock on Hand</p>
-   <!-- <mat-form-field>
+  </mat-form-field>
+<p>Enter Quantity</p>
+<mat-form-field>
     
-    <mat-label>Stock on Hand</mat-label>
-     <input matInput [(ngModel)]="product.stockonHand" />
+    <mat-label>Quantity on Hand</mat-label>
+     <input matInput [disabled]="!isQuantityEdit" [(ngModel)]="vendorproduct.quantityOnHand"  />
    
-  </mat-form-field> -->
+  </mat-form-field>
+
+<br>
+   
   
 </mat-dialog-content>
 <mat-dialog-actions style="display: flex;justify-content: center;">
   <button  mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button (click)="Submit()" cdkFocusInitial>Ok</button>
+  <button (click)="Submit()"  mat-button cdkFocusInitial>Ok</button>
 </mat-dialog-actions>
+
 
 
 
