@@ -9,7 +9,7 @@ import { UserService } from './user.service';
   providedIn: 'root'
 })
 export class AuthenticationService implements HttpInterceptor {
-
+localStorage = document.defaultView?.localStorage; // https://stackoverflow.com/questions/77534244/local-storage-is-not-defined-in-angular-17
   constructor(private httpClient:HttpClient,private router:Router,private userService:UserService) { }
 apiUrl = 'https://localhost:7267/api/User/';
 
