@@ -1,16 +1,21 @@
 import { HttpClient, HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Route } from '@angular/router';
 import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { UserService } from './user.service';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthenticationService implements HttpInterceptor {
-localStorage = document.defaultView?.localStorage; // https://stackoverflow.com/questions/77534244/local-storage-is-not-defined-in-angular-17
-  constructor(private httpClient:HttpClient,private router:Router,private userService:UserService) { }
+  localStorage:any
+ // https://stackoverflow.com/questions/77534244/local-storage-is-not-defined-in-angular-17
+  constructor(private httpClient:HttpClient,private router:Router,private userService:UserService,@Inject(DOCUMENT) private document: Document) {
+this.localStorage = document.defaultView?.localStorage;
+   }
 apiUrl = 'https://localhost:7267/api/User/';
 
 
@@ -25,9 +30,9 @@ intercept(req: HttpRequest<any>,
       //let var = localStorage.getItem('Token')
 //console.log("reach")
   //console.log(localStorage.getItem('Token'))
-  var jwt2 = localStorage.getItem('token')
+  var jwt2 = this.localStorage.getItem('token')
   //console.log(jwt2)
-  const jwt = JSON.parse(JSON.stringify(localStorage.getItem('token')!)) // wasnt valid Json so just stringified
+  const jwt = JSON.parse(JSON.stringify(this.localStorage.getItem('token')!)) // wasnt valid Json so just stringified
   //console.log(jwt)
  //const token = jwt.token
 //console.log(token)

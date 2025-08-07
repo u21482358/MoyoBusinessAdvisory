@@ -1,8 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, Inject, inject, OnInit } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
 // import { AuthService } from '../../core/services/auth.service';
 import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -39,12 +39,15 @@ declare global {
 
 
 export class LoginComponent implements OnInit {
+  localStorage:any
   loginForm: FormGroup = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
   });
    readonly dialog = inject(MatDialog);
-  constructor(private userService: UserService,private router:Router,private authService:SocialAuthService) {}
+  constructor(private userService: UserService,private router:Router,private authService:SocialAuthService,@Inject(DOCUMENT) private document: Document) {
+    this.localStorage = document.defaultView?.localStorage;
+  }
 
   Login(){
 //console.log(this.loginForm.value);
@@ -52,7 +55,7 @@ this.loginForm.value.username = this.loginForm.value.email
     this.userService.Login(this.loginForm.value).subscribe({
       next: (data:any) => {
         //console.log(data.token)
-        localStorage.setItem('token', data.token);
+        this.localStorage.setItem('token', data.token);
         this.router.navigate(['/product']);
       }
 
