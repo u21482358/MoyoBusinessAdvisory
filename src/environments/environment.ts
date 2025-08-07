@@ -1,5 +1,6 @@
 export const environment = {
     
-     apiUrl: 'https://localhost:7267/api/User',
-     production: false
+     apiUrl: 'orderingsystemfrontend-h3h7hzaxfbgzdjav.southafricanorth-01.azurewebsites.net/api',
+     
+     production: true
 };

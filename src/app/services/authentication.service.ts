@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { UserService } from './user.service';
 import { DOCUMENT } from '@angular/common';
+import { environment } from '../../environments/environment';
 //import { BROWSER_STORAGE } from './browserservice.service';
 
 @Injectable({
@@ -16,7 +17,7 @@ export class AuthenticationService implements HttpInterceptor {
  // https://stackoverflow.com/questions/77534244/local-storage-is-not-defined-in-angular-17
   constructor(private httpClient:HttpClient,private router:Router,private userService:UserService) {
    }
-apiUrl = 'https://localhost:7267/api/User/';
+apiUrl = environment.apiUrl + 'Order';
 
 
 intercept(req: HttpRequest<any>,

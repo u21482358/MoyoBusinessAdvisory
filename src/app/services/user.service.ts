@@ -2,13 +2,14 @@ import { SocialUser } from '@abacritt/angularx-social-login';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 public activeUserRole:any
-  apiUrl = 'https://localhost:7267/api/User';
+  apiUrl:any = environment.apiUrl + 'User';
     constructor(private httpClient: HttpClient) { }
   
      httpOptions = {
@@ -19,6 +20,7 @@ public activeUserRole:any
 
         
         Login(user: any) {
+          console.log(this.apiUrl)
           let path = '/Login'
           alert(user.name)
           return this.httpClient.post(this.apiUrl + path, user, this.httpOptions)
