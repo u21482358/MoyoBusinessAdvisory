@@ -9,7 +9,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideAnimationsAsync(),provideHttpClient(withInterceptorsFromDi()),  {provide:HTTP_INTERCEPTORS,useClass:AuthenticationService,multi:true},
+  providers: [provideRouter(routes),provideClientHydration(), provideAnimationsAsync(),provideHttpClient(withInterceptorsFromDi()),  {provide:HTTP_INTERCEPTORS,useClass:AuthenticationService,multi:true},
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

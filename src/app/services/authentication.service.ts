@@ -5,42 +5,39 @@ import { Router } from '@angular/router';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { UserService } from './user.service';
 import { DOCUMENT } from '@angular/common';
+import { BROWSER_STORAGE } from './browserservice.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthenticationService implements HttpInterceptor {
-  localStorage:any
+  
  // https://stackoverflow.com/questions/77534244/local-storage-is-not-defined-in-angular-17
-  constructor(private httpClient:HttpClient,private router:Router,private userService:UserService,@Inject(DOCUMENT) private document: Document) {
-this.localStorage = document.defaultView?.localStorage;
+  constructor(private httpClient:HttpClient,private router:Router,private userService:UserService) {
    }
 apiUrl = 'https://localhost:7267/api/User/';
 
 
 intercept(req: HttpRequest<any>,
     next: HttpHandler): Observable<HttpEvent<any>> {
-      //localStorage.getItem('Token') && localStorage.getItem('Token') != null
+      
       let h1 = ""
       let h12 = "a"
-      //console.log("hi")
-      //console.log(localStorage.getItem('Token'))
-      //console.log(localStorage.getItem('Token'))
-      //let var = localStorage.getItem('Token')
-//console.log("reach")
-  //console.log(localStorage.getItem('Token'))
-  var jwt2 = this.localStorage.getItem('token')
-  //console.log(jwt2)
-  const jwt = JSON.parse(JSON.stringify(this.localStorage.getItem('token')!)) // wasnt valid Json so just stringified
-  //console.log(jwt)
- //const token = jwt.token
-//console.log(token)
-  var cloned = req.clone({
+
+  
+  var cloned = req.clone()
+  if(typeof localStorage !== 'undefined'){
+
+    var jwt2 = localStorage.getItem('token')
+  const jwt = JSON.parse(JSON.stringify(localStorage.getItem('token')!)) // wasnt valid Json so just stringified
+cloned = req.clone({
        headers:  req.headers.set("Authorization","Bearer " + jwt)
        .set('Cache-Control', 'no-cache').set('responseType', 'blob')
    
   });
+  }
+   
  
 // https://v17.angular.io/guide/http-interceptor-use-cases
    return next.handle(cloned).pipe(

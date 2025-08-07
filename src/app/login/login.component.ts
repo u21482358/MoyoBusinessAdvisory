@@ -17,6 +17,9 @@ import { Subject } from 'rxjs';
 import { error } from 'console';
 import { MatDialog } from '@angular/material/dialog';
 import { AdduserComponent } from '../adduser/adduser.component';
+import { InjectionToken } from '@angular/core';
+import { BROWSER_STORAGE } from '../services/browserservice.service';
+
 
 
 // https://stackoverflow.com/questions/73255003/how-bind-angular-component-function-to-google-signin-button
@@ -39,14 +42,14 @@ declare global {
 
 
 export class LoginComponent implements OnInit {
-  localStorage:any
+   //localStorage = new InjectionToken<Storage>('Local Storage');
   loginForm: FormGroup = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
   });
    readonly dialog = inject(MatDialog);
-  constructor(private userService: UserService,private router:Router,private authService:SocialAuthService,@Inject(DOCUMENT) private document: Document) {
-    this.localStorage = document.defaultView?.localStorage;
+  constructor(private userService: UserService,private router:Router,private authService:SocialAuthService,@Inject(BROWSER_STORAGE) public storage: Storage) {
+   // this.localStorage = document.defaultView?.localStorage;
   }
 
   Login(){
@@ -55,8 +58,11 @@ this.loginForm.value.username = this.loginForm.value.email
     this.userService.Login(this.loginForm.value).subscribe({
       next: (data:any) => {
         //console.log(data.token)
-        this.localStorage.setItem('token', data.token);
+
+         if(typeof localStorage !== 'undefined'){
+        this.storage.setItem('token', data.token);
         this.router.navigate(['/product']);
+         }
       }
 
   })

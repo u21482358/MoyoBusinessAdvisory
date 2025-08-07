@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, InjectionToken } from '@angular/core';
 import { RouterOutlet, Router } from '@angular/router';
 // import { AuthService } from '../../core/services/auth.service';
 //import { FormsModule } from '@angular/forms';
@@ -48,6 +48,7 @@ export const globalModules = [
   MatSelect,
   MatOption,
   ReactiveFormsModule
+
   //FormControl,
   //FormsModule
   //BrowserModule,
