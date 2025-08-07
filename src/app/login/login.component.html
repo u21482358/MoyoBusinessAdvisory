@@ -10,13 +10,13 @@
         <form [formGroup]="loginForm" >
           <p>
             <mat-form-field>
-              <input type="text" matInput placeholder="email" formControlName="email">
+              <input type="text" data-testid="username"  matInput placeholder="email" formControlName="email">
             </mat-form-field>
           </p>
 
           <p>
             <mat-form-field>
-              <input type="password" matInput placeholder="Password" formControlName="password">
+              <input type="password" data-testid="password" matInput placeholder="Password" formControlName="password">
             </mat-form-field>
           </p>
 
@@ -25,7 +25,7 @@
           </p> -->
 
           <div class="button">
-            <button class="login" type="submit" (click)="Login()" mat-button>Login</button>
+            <button class="login" type="submit" data-testid="login" (click)="Login()" mat-button>Login</button>
             <button class="signUp" type="submit" (click)="SignUp()" mat-button>Sign Up</button>
           </div>
           <div class="signUp">

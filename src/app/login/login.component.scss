@@ -57,7 +57,7 @@
  height:100%;
  width:100%;
   background-image: url('/assets/Moyo.jpg');
- background-repeat: initial;
+ background-repeat: no-repeat; // https://stackoverflow.com/questions/50968731/same-background-image-gets-displayed-multiple-times-on-the-webpage
   background-size:cover;
 }
  
