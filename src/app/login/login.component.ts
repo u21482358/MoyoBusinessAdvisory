@@ -18,7 +18,7 @@ import { error } from 'console';
 import { MatDialog } from '@angular/material/dialog';
 import { AdduserComponent } from '../adduser/adduser.component';
 import { InjectionToken } from '@angular/core';
-import { BROWSER_STORAGE } from '../services/browserservice.service';
+//import { BROWSER_STORAGE } from '../services/browserservice.service';
 
 
 
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl(''),
   });
    readonly dialog = inject(MatDialog);
-  constructor(private userService: UserService,private router:Router,private authService:SocialAuthService,@Inject(BROWSER_STORAGE) public storage: Storage) {
+  constructor(private userService: UserService,private router:Router,private authService:SocialAuthService) {
    // this.localStorage = document.defaultView?.localStorage;
   }
 
@@ -60,7 +60,7 @@ this.loginForm.value.username = this.loginForm.value.email
         //console.log(data.token)
 
          if(typeof localStorage !== 'undefined'){
-        this.storage.setItem('token', data.token);
+        localStorage.setItem('token', data.token);
         this.router.navigate(['/product']);
          }
       }
