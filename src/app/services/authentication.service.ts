@@ -30,6 +30,8 @@ intercept(req: HttpRequest<any>,
   var cloned = req.clone()
   if(typeof localStorage !== 'undefined'){
 
+    
+
     var jwt2 = localStorage.getItem('token')
   const jwt = JSON.parse(JSON.stringify(localStorage.getItem('token')!)) // wasnt valid Json so just stringified
 cloned = req.clone({
