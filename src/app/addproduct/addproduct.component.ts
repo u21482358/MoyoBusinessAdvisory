@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } fro
 import { PlaceorderComponent } from '../placeorder/placeorder.component';
 import { Product } from '../Models/Product';
 import { globalModules } from '../../globalModules';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { User } from '../Models/User';
 import { MatSelectChange } from '@angular/material/select';
 import { VendorProduct } from '../Models/VendorProduct';
@@ -39,6 +39,13 @@ title:any = "Add Product"
 //    {name: 'Lennovo', id: 2},
 //    {name: 'Dell', id: 3}
 // ];
+//https://stackoverflow.com/questions/63953338/angular-forms-integer-validator/63953423
+addProductForm: FormGroup = new FormGroup({
+  name: new FormControl('',Validators.required),
+      vendor: new FormControl('',Validators.required),
+     price: new FormControl('',Validators.required),
+      quantityOnHand: new FormControl('',[Validators.required, Validators.pattern("^[0-9]*$")]),
+  });
  readonly dialogRef = inject(MatDialogRef<AddproductComponent>);
   readonly data = inject<any>(MAT_DIALOG_DATA);
   action = this.data.action
@@ -93,13 +100,7 @@ Submit(){
   console.log(this.selectedVendor)
   console.log(this.product)
   console.log(this.vendorproduct)
-  //alert("hi")
-  //console.log(this.product)
-  //alert(this.product.name)
-  //alert(this.product.vendorId)
-  //alert(this.product.price)
-  //alert(this.product.stockonHand)
-  //alert(this.product.price);
+ 
   this.dialogRef.close(this.vendorproduct);
 }
 

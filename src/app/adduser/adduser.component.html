@@ -1,14 +1,16 @@
-<h2 mat-dialog-title>Add User</h2>
+<h2 data-testid="header" class="header" mat-dialog-title>Add User</h2>
+<input data-testid="name" type="text">
 <mat-dialog-content>
+  
   <p>Name</p>
   <mat-form-field>
     <mat-label></mat-label>
-    <input [(ngModel)]="user.name" matInput />
+    <input data-testid="signup-name" [(ngModel)]="user.name" formControlName="name" matInput />
     </mat-form-field>
    <p>Type of user</p>
   <mat-form-field>
     <mat-label></mat-label>
-   <mat-select [(value)]="userSelected">
+   <mat-select formControlName="userType" data-testid="signup-user" [(value)]="userSelected">
     @for (usertype of userTypes; track usertype) {
       <mat-option [value]="usertype.name">{{usertype.name}}</mat-option>
     }
@@ -18,7 +20,7 @@
   <p>Email</p>
   <mat-form-field>
     <mat-label></mat-label>
-    <input [(ngModel)]="user.email" matInput />
+    <input formControlName="email" data-testid="signup-email" [(ngModel)]="user.email" matInput />
   
   </mat-form-field>
   <br>
@@ -26,7 +28,7 @@
   <mat-form-field>
     
     <mat-label>Password</mat-label>
-     <input type="password" matInput [(ngModel)]="user.password"  />
+     <input formControlName="password" data-testid="signup-password" type="password" matInput [(ngModel)]="user.password"  />
    
   </mat-form-field>
 <br>
@@ -34,7 +36,7 @@
 </mat-dialog-content>
 <mat-dialog-actions style="display: flex;justify-content: center;">
   <button  mat-button (click)="onNoClick()">No Thanks</button>
-  <button    mat-button (click)="Submit()" cdkFocusInitial>Ok</button>
+  <button data-testid="signup-button" [disabled]="!addUserForm.valid"   mat-button (click)="Submit()" cdkFocusInitial>Ok</button>
 </mat-dialog-actions>
 
 

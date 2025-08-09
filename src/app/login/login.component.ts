@@ -60,6 +60,7 @@ this.loginForm.value.username = this.loginForm.value.email
         //console.log(data.token)
 
          if(typeof localStorage !== 'undefined'){
+          console.log("in")
         localStorage.setItem('token', data.token);
         this.router.navigate(['/product']);
          }

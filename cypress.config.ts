@@ -5,6 +5,7 @@ export default defineConfig({
     devServer: {
       framework: "angular",
       bundler: "webpack",
+      
     },
     specPattern: "**/*.cy.ts",
   },
@@ -13,5 +14,6 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
+    //defaultCommandTimeout: 20000
   },
 });

@@ -17,7 +17,7 @@ export class AuthenticationService implements HttpInterceptor {
  // https://stackoverflow.com/questions/77534244/local-storage-is-not-defined-in-angular-17
   constructor(private httpClient:HttpClient,private router:Router,private userService:UserService) {
    }
-apiUrl = environment.apiUrl + 'Order';
+apiUrl = environment.apiUrl + 'User';
 
 
 intercept(req: HttpRequest<any>,
@@ -48,7 +48,7 @@ cloned = req.clone({
                   console.log(error)
                     if (error.status==401) {
                       console.log("401 error")
-                      this.router.navigate(['/Login'])
+                      this.router.navigate([''])
                     }
                     return throwError(error);
                   } // else navigate to dashboard or whatever then you need to clear local storage before the test
@@ -62,7 +62,7 @@ cloned = req.clone({
       let bool = false
       console.log("auth")
       let val = new Promise((resolve,reject) =>{
-     let req =  this.httpClient.get(`${this.apiUrl}CheckAuthentication`,{observe: 'response'}).pipe(
+     let req =  this.httpClient.get(`${this.apiUrl}/CheckAuthentication`,{observe: 'response'}).pipe(
         map((res:any) =>{
           console.log(res)
          this.userService.activeUserRole = res.body.role

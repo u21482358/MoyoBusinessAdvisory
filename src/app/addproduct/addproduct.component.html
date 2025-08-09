@@ -2,11 +2,11 @@
 <mat-dialog-content>
   
 <p>Product Name</p>
-
+ <form [formGroup]="addProductForm" >
 <mat-form-field>
     <mat-label></mat-label>
     @if(action =='add'){
-    <input (onkeyup)="OnKeyup($event)" [(ngModel)]="product.name" matInput />
+    <input data-testid="add-product-name" formControlName="name"  (onkeyup)="OnKeyup($event)" [(ngModel)]="product.name" matInput />
     }@else if(action=='assign'){
       <input (onkeyup)="OnKeyup($event)" disabled="true" [(ngModel)]="product.name" matInput />
     }
@@ -23,9 +23,9 @@
   <p>Vendor</p>
   <mat-form-field>
     <mat-label></mat-label>
-   <mat-select [(ngModel)]="vendorproduct.vendor">
-    @for (vendor of vendors; track vendor) {
-      <mat-option [value]="vendor">{{vendor.name}}</mat-option>
+   <mat-select data-testid="add-product-vendor" formControlName="vendor"  [(ngModel)]="vendorproduct.vendor">
+    @for (vendor of vendors; track vendor;let idx = $index) {
+      <mat-option [id]="'option-'+idx" [value]="vendor">{{vendor.name}}</mat-option>
     }
   </mat-select>
   </mat-form-field>
@@ -34,7 +34,7 @@
   <mat-form-field>
     
     <mat-label>Price</mat-label>
-     <input matInput (ngModelChange)="updatesubTotal($event)" [(ngModel)]="vendorproduct.price"  />
+     <input type="number" matInput data-testid="add-product-price" formControlName="price" (ngModelChange)="updatesubTotal($event)" [(ngModel)]="vendorproduct.price"  />
    
   </mat-form-field>
 <br>
@@ -42,14 +42,14 @@
    <mat-form-field>
     
     <mat-label>Stock on Hand</mat-label>
-     <input matInput [(ngModel)]="vendorproduct.quantityonhand"  />
+     <input type="number" formControlName="quantityOnHand" matInput data-testid="add-product-quantity"  [(ngModel)]="vendorproduct.quantityonhand"  />
    
   </mat-form-field>
-
+</form>
 </mat-dialog-content>
 <mat-dialog-actions style="display: flex;justify-content: center;">
   <button  mat-button (click)="onNoClick()">No Thanks</button>
-  <button    mat-button (click)="Submit()" cdkFocusInitial>Ok</button>
+  <button [disabled]="!addProductForm.valid" data-testid="add-product-ok"   mat-button (click)="Submit()" cdkFocusInitial>Ok</button>
 </mat-dialog-actions>
 
 

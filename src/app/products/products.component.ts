@@ -133,7 +133,7 @@ public PlaceOrder(product:any) {
     //console.log(element)
     //alert(element.name)
 
-    alert("remember to add promises to wait for vendors to arrive.")
+   // alert("remember to add promises to wait for vendors to arrive.")
     console.log(this.vendors)
     const dialogRef = this.dialog.open(AddproductComponent, {
       data:{vendors:this.vendors,products:this.products,action:'add'}
@@ -146,6 +146,7 @@ public PlaceOrder(product:any) {
       if(result){
       this.productService.createProduct(result).subscribe({
         next: (data) => {
+          this.GetProducts()
         }
     })
   }
@@ -167,8 +168,7 @@ public PlaceOrder(product:any) {
 
      dialogRef.afterClosed().subscribe(result => {
       //console.log(`Dialog result: ${result}`);
-      //alert(result.price)
-      alert(result.price)
+      
       if(result){
       this.productService.AssignProductToVendor(result).subscribe({
         next: (data) => {
@@ -183,7 +183,7 @@ public PlaceOrder(product:any) {
 
   
     // NB NB NB NB NB get all vendors that are not on product.
-    alert("remember to add promises to wait for vendors to arrive.")
+    
     console.log(this.vendors)
    
   
@@ -318,7 +318,7 @@ public ngOnInit(){
       this.btnMessage = "Place Order";
       break;
       case "vendor":
-        alert("vendor")
+        //alert("vendor")
         this.GetVendorProducts()
        
 

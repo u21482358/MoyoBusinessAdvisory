@@ -3,7 +3,7 @@ import { User } from '../Models/User';
 import { MatDialogActions, MatDialogContent, MatDialogRef } from '@angular/material/dialog';
 import { AddproductComponent } from '../addproduct/addproduct.component';
 import { globalModules } from '../../globalModules';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, RequiredValidator, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-adduser',
@@ -18,6 +18,12 @@ username:any
 password:any
 userSelected:any
 user:User = new User();
+addUserForm: FormGroup = new FormGroup({
+  name: new FormControl('',Validators.required),
+    email: new FormControl('',Validators.email),
+    userType: new FormControl('',Validators.required),
+    password: new FormControl('',Validators.min(6)),
+  });
  readonly dialogRef = inject(MatDialogRef<AdduserComponent>);
 userTypes = [{id:1,name:'client'},{id:2,name:'capturer'}, {id:3,name:'vendor'}]; // Example user types, replace with actual data
 nNoClick(): void {

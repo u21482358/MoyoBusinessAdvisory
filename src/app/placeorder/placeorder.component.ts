@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormsModule, NgModel } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, NgModel, Validators } from '@angular/forms';
 import { globalModules } from '../../globalModules';
 import {
   MAT_DIALOG_DATA,
@@ -31,7 +31,13 @@ price:any
 //quantity:any
 isDisabled = false;
 productorder:any = {}
+placeOrderForm: FormGroup = new FormGroup({
 
+  //vendor: new FormControl('',Validators.required),
+    quantity: new FormControl(this.productorder.numberOfItems,[Validators.required, Validators.pattern("^[0-9]*$")]),
+   
+    //
+})
 constructor() { }
  readonly dialogRef = inject(MatDialogRef<PlaceorderComponent>);
   readonly data = inject<any>(MAT_DIALOG_DATA);
