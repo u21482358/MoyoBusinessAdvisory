@@ -1,6 +1,7 @@
 <h2 mat-dialog-title> {{message}}</h2>
 <mat-dialog-content>
   <p>Product Name</p>
+  <form [formGroup]="addProductForm" >
   <mat-form-field>
     <mat-label>{{vendorproduct.name}}</mat-label>
     <input matInput disabled="true"  />
@@ -11,24 +12,24 @@
   <mat-form-field>
     
     <mat-label>Price</mat-label>
-     <input matInput [disabled]="isQuantityEdit" [(ngModel)]="vendorproduct.price"  />
+     <input matInput  formControlName="price"  />
    
   </mat-form-field>
 <p>Enter Quantity</p>
 <mat-form-field>
     
     <mat-label>Quantity on Hand</mat-label>
-     <input matInput [disabled]="!isQuantityEdit" [(ngModel)]="vendorproduct.quantityOnHand"  />
+     <input matInput  formControlName="quantityOnHand"  />
    
   </mat-form-field>
 
 <br>
    
-  
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions style="display: flex;justify-content: center;">
   <button  mat-button (click)="onNoClick()">No Thanks</button>
-  <button (click)="Submit()"  mat-button cdkFocusInitial>Ok</button>
+  <button [disabled]="!addProductForm.valid" (click)="Submit()"  mat-button cdkFocusInitial>Ok</button>
 </mat-dialog-actions>
 
 

@@ -7,7 +7,6 @@ import { PlaceorderComponent } from '../placeorder/placeorder.component';
 import { EditproductComponent } from '../editproduct/editproduct.component';
 import { AddproductComponent } from '../addproduct/addproduct.component';
 import { ProductserviceService } from '../services/productservice.service';
-import { CreatevendorComponent } from '../createvendor/createvendor.component';
 import { UserService } from '../services/user.service';
 import { User } from '../Models/User';
 import e from 'express';
@@ -109,7 +108,7 @@ public PlaceOrder(product:any) {
     //console.log(element)
     //alert(element.name)
     const dialogRef = this.dialog.open(EditproductComponent, {
-      data: {product:element, isQuantityEdited:isQuantityEdited},
+      data: {vendorproduct:element, isQuantityEdited:isQuantityEdited},
     });
 
      dialogRef.afterClosed().subscribe(result => {
@@ -196,6 +195,7 @@ public PlaceOrder(product:any) {
     //console.log(element)
     //alert(element.name)
 this.userService.GetVendorProducts().subscribe((res:any)=>{
+  console.log(res)
   console.log(res.products)
   this.products = res.products
   this.products.forEach((element:any) => {

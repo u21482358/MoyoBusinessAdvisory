@@ -25,7 +25,7 @@
           </p> -->
 
           <div class="button">
-            <button class="login" type="submit" data-testid="login" (click)="Login()" mat-button>Login</button>
+            <button class="login" [disabled]="!loginForm.valid"  type="submit" data-testid="login" (click)="Login()" mat-button>Login</button>
             <button class="signUp" type="submit" data-testid="signup" (click)="SignUp()" mat-button>Sign Up</button>
           </div>
           <div class="signUp">
@@ -36,6 +36,7 @@
           </div>
 
         </form>
+
       </mat-card-content>
     </mat-card>
 </div>

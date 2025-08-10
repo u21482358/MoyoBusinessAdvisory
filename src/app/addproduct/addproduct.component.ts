@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } fro
 import { PlaceorderComponent } from '../placeorder/placeorder.component';
 import { Product } from '../Models/Product';
 import { globalModules } from '../../globalModules';
-import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { User } from '../Models/User';
 import { MatSelectChange } from '@angular/material/select';
 import { VendorProduct } from '../Models/VendorProduct';
@@ -43,8 +43,8 @@ title:any = "Add Product"
 addProductForm: FormGroup = new FormGroup({
   name: new FormControl('',Validators.required),
       vendor: new FormControl('',Validators.required),
-     price: new FormControl('',Validators.required),
-      quantityOnHand: new FormControl('',[Validators.required, Validators.pattern("^[0-9]*$")]),
+     price: new FormControl('',[Validators.required]),
+      quantityOnHand: new FormControl('',[Validators.required, Validators.pattern("^[0-9]*$"),this.quantityValidator]),
   });
  readonly dialogRef = inject(MatDialogRef<AddproductComponent>);
   readonly data = inject<any>(MAT_DIALOG_DATA);
@@ -57,6 +57,14 @@ addProductForm: FormGroup = new FormGroup({
  // readonly animal = model(this.data.animal);
  onNoClick(): void {
     this.dialogRef.close();
+}
+
+quantityValidator(control: AbstractControl): { [key: string]: boolean } | null {
+ console.log("quantity validate")
+    if ( control.value <= 0) {
+        return { 'quantity': true }; // this means failed
+    }
+    return null;
 }
 ngOnInit(){
  //this.product.product
@@ -100,8 +108,11 @@ Submit(){
   console.log(this.selectedVendor)
   console.log(this.product)
   console.log(this.vendorproduct)
- 
-  this.dialogRef.close(this.vendorproduct);
+  this.vendorproduct = this.addProductForm.value
+  this.product.name = this.addProductForm.value.name
+  this.vendorproduct.product = this.product
+ console.log(this.addProductForm.value)
+this.dialogRef.close(this.addProductForm.value);
 }
 
   

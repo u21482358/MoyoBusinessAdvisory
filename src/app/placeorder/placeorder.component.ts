@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, NgModel, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormsModule, NgModel, Validators } from '@angular/forms';
 import { globalModules } from '../../globalModules';
 import {
   MAT_DIALOG_DATA,
@@ -34,7 +34,7 @@ productorder:any = {}
 placeOrderForm: FormGroup = new FormGroup({
 
   //vendor: new FormControl('',Validators.required),
-    quantity: new FormControl(this.productorder.numberOfItems,[Validators.required, Validators.pattern("^[0-9]*$")]),
+    quantity: new FormControl(this.productorder.numberOfItems,[Validators.required, Validators.pattern("^[0-9]*$"),this.quantityValidator]),
    
     //
 })
@@ -52,11 +52,24 @@ constructor() { }
  // readonly animal = model(this.data.animal);
 
   onNoClick(): void {
+    alert(this.productorder.numberOfItems)
     this.dialogRef.close();
 }
-updatesubTotal(value:any){
-this.selectedVendorProduct = false
+// https://www.infragistics.com/blogs/custom-validators-angular-reactive-forms/
+quantityValidator(control: AbstractControl): { [key: string]: boolean } | null {
+ 
+    if ( control.value <= 0) {
+        return { 'quantity': true }; // this means failed
+    }
+    return null;
+}
+
+ngAfterViewInit() {
+      this.placeOrderForm.get('quantity')?.valueChanges.subscribe(value => {
+        this.productorder.numberOfItems = value;
+        this.selectedVendorProduct = false
 this.subTotal = null
+console.log(value)
 // https://stackoverflow.com/questions/51747397/how-to-break-foreach-loop-in-typescript/51747545
   for (let element of this.vendorproducts) {
     if(value > 0){
@@ -64,6 +77,7 @@ this.subTotal = null
     console.log(element)
     this.selectedVendorProduct = element;
     this.subTotal = value * element.price;
+    console.log(this.subTotal)
     console.log(this.selectedVendorProduct)
     break;
    } 
@@ -73,10 +87,15 @@ this.subTotal = null
     this.subTotal = null;
     break;
   }
+    }    //console.log(this.formattedMessage);
+      });
+  }
+updatesubTotal(value:any){
+
 }
   
   //this.isDisabled = false;
-}
+
 
   
  

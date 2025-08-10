@@ -44,8 +44,8 @@ declare global {
 export class LoginComponent implements OnInit {
    //localStorage = new InjectionToken<Storage>('Local Storage');
   loginForm: FormGroup = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
+    email: new FormControl('',[Validators.required,Validators.email]),
+    password: new FormControl('',[Validators.required,Validators.minLength(6)]),
   });
    readonly dialog = inject(MatDialog);
   constructor(private userService: UserService,private router:Router,private authService:SocialAuthService) {

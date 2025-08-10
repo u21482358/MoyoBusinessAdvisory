@@ -14,15 +14,17 @@ import { FormControl, FormGroup, FormsModule, RequiredValidator, Validators } fr
 })
 export class AdduserComponent implements OnInit {
 name:any
-username:any
+//username:any
 password:any
 userSelected:any
 user:User = new User();
+userType:any
 addUserForm: FormGroup = new FormGroup({
+  username: new FormControl(''),
   name: new FormControl('',Validators.required),
-    email: new FormControl('',Validators.email),
+    email: new FormControl('',[Validators.required,Validators.email]),
     userType: new FormControl('',Validators.required),
-    password: new FormControl('',Validators.min(6)),
+    password: new FormControl('',[Validators.required,Validators.minLength(6)]),
   });
  readonly dialogRef = inject(MatDialogRef<AdduserComponent>);
 userTypes = [{id:1,name:'client'},{id:2,name:'capturer'}, {id:3,name:'vendor'}]; // Example user types, replace with actual data
@@ -35,8 +37,9 @@ ngOnInit(){
 }
 
 Submit(){
-
-this.user.username = this.user.email
+this.addUserForm.get("username")?.setValue(this.addUserForm.value.email);
+  //this.addUserForm.setValue({username})
+//this.user.username = this.user.email
   //alert("hi")
   //alert()
   //console.log(this.product)
@@ -45,7 +48,7 @@ this.user.username = this.user.email
   //alert(this.product.price)
   //alert(this.product.stockonHand)
   //alert(this.product.price);
-  this.dialogRef.close({user:this.user, userType:this.userSelected});
+  this.dialogRef.close({user:this.addUserForm.value, userType:this.addUserForm.value.userType});
 }
 
 onNoClick(): void {
