@@ -19,9 +19,16 @@ apiUrl:any = environment.apiUrl + 'Order';
 
   PlaceOrder(vendorProduct:any){
     let path = '/post'
-    
+   // vendorProduct.orderStatus = 
     return this.httpClient.post(this.apiUrl + path, vendorProduct, this.httpOptions)
   }
+
+    UpdateOrder(productOrder:any){
+    let path = '/put'
+   // vendorProduct.orderStatus = 
+    return this.httpClient.put(this.apiUrl + path, productOrder, this.httpOptions)
+  }
+
 
   getOrders(){
     let path = '/get'

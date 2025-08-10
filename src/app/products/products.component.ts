@@ -61,13 +61,7 @@ export class ProductsComponent implements OnInit {
   products:any
 
 
-   public openDialog(element:User) {
-    //console.log(element)
-    //alert(element.name)
-    const dialogRef = this.dialog.open(PlaceorderComponent, {
-      data: element,
-    });
-}
+ 
 
 public PlaceOrder(product:any) {
     //console.log(element)

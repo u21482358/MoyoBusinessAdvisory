@@ -1,13 +1,14 @@
 import { SocialUser } from '@abacritt/angularx-social-login';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+public showNavigation:BehaviorSubject<any> = new BehaviorSubject<any>(false);
 public activeUserRole:any
   apiUrl:any = environment.apiUrl + 'User';
     constructor(private httpClient: HttpClient) { }

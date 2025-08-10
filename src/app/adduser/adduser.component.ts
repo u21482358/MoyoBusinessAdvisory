@@ -48,7 +48,9 @@ this.addUserForm.get("username")?.setValue(this.addUserForm.value.email);
   //alert(this.product.price)
   //alert(this.product.stockonHand)
   //alert(this.product.price);
-  this.dialogRef.close({user:this.addUserForm.value, userType:this.addUserForm.value.userType});
+  this.userSelected = this.addUserForm.value.userType
+  delete this.addUserForm.value.userType
+  this.dialogRef.close({user:this.addUserForm.value, userType:this.userSelected});
 }
 
 onNoClick(): void {

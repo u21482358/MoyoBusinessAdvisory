@@ -12,7 +12,7 @@
     <mat-label></mat-label>
    <mat-select formControlName="userType" data-testid="signup-user" >
     @for (usertype of userTypes; track usertype) {
-      <mat-option [value]="usertype.name">{{usertype.name}}</mat-option>
+      <mat-option data-testid="signup-user" [value]="usertype.name">{{usertype.name}}</mat-option>
     }
   </mat-select>
   </mat-form-field>

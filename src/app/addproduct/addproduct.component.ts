@@ -34,6 +34,7 @@ selectedVendor:any
 ExistingValue = false
 NewValue = false
 title:any = "Add Product"
+disabled = true
 // vendors = [
 //   {name: 'HP', id: 1},
 //    {name: 'Lennovo', id: 2},
@@ -72,6 +73,8 @@ ngOnInit(){
   
   this.vendors = this.data.vendors
   if(this.data.action == 'assign'){
+    this.addProductForm.get("name")?.setValue(this.data.product.name);
+    this.addProductForm.get("name")?.disable()
     this.title = "Assign Vendor"
     this.product = this.data.product
     console.log(this.product.name)
@@ -103,16 +106,16 @@ if(value){
 }
 
 Submit(){
-  this.vendorproduct.product = this.product
+  
   //this.vendorproduct.vendor = this.ve
   console.log(this.selectedVendor)
   console.log(this.product)
   console.log(this.vendorproduct)
   this.vendorproduct = this.addProductForm.value
-  this.product.name = this.addProductForm.value.name
   this.vendorproduct.product = this.product
- console.log(this.addProductForm.value)
-this.dialogRef.close(this.addProductForm.value);
+  
+ console.log(this.vendorproduct)
+this.dialogRef.close(this.vendorproduct);
 }
 
   

@@ -66,11 +66,13 @@ cloned = req.clone({
         map((res:any) =>{
           console.log(res)
          this.userService.activeUserRole = res.body.role
+         this.userService.showNavigation.next(true)
           resolve(true)
           bool=true
         }),
         catchError((err) =>{
           { // just check numbers of errors for client side and server side...
+             this.userService.showNavigation.next(false)
             reject(false) // check actual codes and maybe do this differently
             bool=false
          
