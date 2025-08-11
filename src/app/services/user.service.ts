@@ -54,13 +54,7 @@ public activeUserRole:any
             )
         }
 
-        GetVendorProducts(){
-          let path = '/getVendorProducts'
-          return this.httpClient.get(this.apiUrl + path, this.httpOptions)
-            .pipe(
-              catchError(this.handleError)
-            )
-        }
+       
 
         private handleError(error: any) {
           if (error.error instanceof ErrorEvent) {
@@ -73,6 +67,7 @@ public activeUserRole:any
           return throwError('Something bad happened; please try again later.');
         }
 
+        // To update the product view so that if they want to add a new product to vendor they can.
         getVendors() {
           let path = '/getVendors'
           return this.httpClient.get<any[]>(this.apiUrl + path, this.httpOptions)

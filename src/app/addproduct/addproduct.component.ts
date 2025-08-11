@@ -17,29 +17,20 @@ import { VendorProduct } from '../Models/VendorProduct';
   styleUrl: './addproduct.component.scss'
 })
 export class AddproductComponent implements OnInit {
-name:any
-animal:any
-price:any
-quantity:any = 1
-isDisabled = false;
-stockonHand:any
-userSelected:any
+
+
+
+
 vendorproduct = new VendorProduct()
 product = new Product()
 vendors:any
- //vendorproduct:any
-selectedProduct = undefined
-//vendor:User = new User();
-selectedVendor:any
-ExistingValue = false
-NewValue = false
 title:any = "Add Product"
-disabled = true
-// vendors = [
-//   {name: 'HP', id: 1},
-//    {name: 'Lennovo', id: 2},
-//    {name: 'Dell', id: 3}
-// ];
+readonly dialogRef = inject(MatDialogRef<AddproductComponent>);
+readonly data = inject<any>(MAT_DIALOG_DATA);
+action = this.data.action
+existingProducts:any
+
+
 //https://stackoverflow.com/questions/63953338/angular-forms-integer-validator/63953423
 addProductForm: FormGroup = new FormGroup({
   name: new FormControl('',Validators.required),
@@ -47,10 +38,7 @@ addProductForm: FormGroup = new FormGroup({
      price: new FormControl('',[Validators.required]),
       quantityOnHand: new FormControl('',[Validators.required, Validators.pattern("^[0-9]*$"),this.quantityValidator]),
   });
- readonly dialogRef = inject(MatDialogRef<AddproductComponent>);
-  readonly data = inject<any>(MAT_DIALOG_DATA);
-  action = this.data.action
-  existingProducts:any
+
    // should it be readonly?
  
   //subTotal:any = this.data.price
@@ -85,30 +73,11 @@ ngOnInit(){
   //alert(this.data.name)
 }
 
-onSelectionChange(event:MatSelectChange){
-  if(event.value == undefined){
-   this.ExistingValue = false
-  }else{
-this.ExistingValue = true
-  }
-}
-
-
-
-
-OnKeyup(value:any){
-  console.log(value)
-if(value){
-  this.NewValue = true
-}else{
-  this.NewValue = false
-}
-}
 
 Submit(){
   
   //this.vendorproduct.vendor = this.ve
-  console.log(this.selectedVendor)
+  
   console.log(this.product)
   console.log(this.vendorproduct)
 
@@ -121,11 +90,6 @@ this.dialogRef.close(this.vendorproduct);
 }
 
   
-updatesubTotal(value:any){
-  //console.log(this.quantity)
-  //alert(value)
-  //this.subTotal = value * this.data.price;
- 
-}
+
 
 }

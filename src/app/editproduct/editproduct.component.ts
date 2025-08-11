@@ -13,18 +13,22 @@ import { AbstractControl, FormControl, FormGroup, FormsModule, Validators } from
   styleUrl: './editproduct.component.scss'
 })
 export class EditproductComponent implements OnInit {
-name:any
-animal:any
-price:any
-quantity:any = 1
-selectedVendorId:any
+
+
+
+
+
 //product:any
-stockonHand:any
-isDisabledobj:any
-vendors:any = []
+
 message:any
- readonly dialogRef = inject(MatDialogRef<EditproductComponent>);
-  readonly data = inject<any>(MAT_DIALOG_DATA);
+readonly dialogRef = inject(MatDialogRef<EditproductComponent>);
+readonly data = inject<any>(MAT_DIALOG_DATA);
+subTotal:any = this.data.price
+product:Product = new Product() // should it be readonly?
+userRole:any = this.data.userRole; // should it be readonly?
+ // readonly animal = model(this.data.animal);
+ vendorproduct:any
+ isQuantityEdit:any
   // https://stackoverflow.com/questions/42840136/disable-input-fields-in-reactive-form
 addProductForm: FormGroup = new FormGroup({
 //  name: new FormControl('',Validators.required),
@@ -34,13 +38,7 @@ addProductForm: FormGroup = new FormGroup({
   });
 
 
-  subTotal:any = this.data.price
-  product:Product = new Product() // should it be readonly?
-  userRole:any = this.data.userRole; // should it be readonly?
-  command:any = this.data.command; // should it be readonly?
- // readonly animal = model(this.data.animal);
- vendorproduct:any
- isQuantityEdit:any
+ 
  onNoClick(): void {
     this.dialogRef.close();
 }
@@ -53,9 +51,8 @@ if(this.isQuantityEdit){
 }else{
   this.addProductForm.controls[' quantityOnHand'].disable()
 }
-console.log(this.isQuantityEdit)
-this.vendorproduct.price = this.data.vendorproduct.price
-this.vendorproduct.quantityOnHand = this.data.vendorproduct.quantityOnHand
+
+
   //this.product = JSON.parse(JSON.stringify(this.data.product)); // https://stackoverflow.com/questions/51448458/typescript-changes-on-variable-are-being-reflected-on-another-variable
 
 }
@@ -67,6 +64,8 @@ quantityValidator(control: AbstractControl): { [key: string]: boolean } | null {
     }
     return null;
 }
+
+
   
 Submit(){
   // better to put the product so you dont have to run this.
@@ -77,14 +76,6 @@ Submit(){
   this.dialogRef.close(this.vendorproduct);
 }
 
-// ngAfterViewInit(): void {
 
-// this.addProductForm.valueChanges.subscribe((response) => {
-  
-//       this.vendorproduct.price = response.price;
-//       this.vendorproduct.quantityOnHand = response.quantityOnHand;
-//     })
-// };
-// }
 }
 

@@ -19,4 +19,8 @@ readonly dialogRef = inject(MatDialogRef<OrderconfirmationComponent>);
 Submit(){
   this.dialogRef.close(true);
 }
+
+onNoClick(): void {
+    this.dialogRef.close();
+}
 }

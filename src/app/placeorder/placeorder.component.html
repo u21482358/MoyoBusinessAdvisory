@@ -12,7 +12,7 @@
   <mat-form-field>
     
     <mat-label>Quantity</mat-label>
-     <input formControlName ="quantity"  matInput (change)="updatesubTotal($event)"   />
+     <input formControlName ="quantity"  matInput   />
    
   </mat-form-field>
 <br>
@@ -27,5 +27,5 @@
 </mat-dialog-content>
 <mat-dialog-actions style="display: flex;justify-content: center;">
   <button  mat-button (click)="onNoClick()">No Thanks</button>
-  <button [disabled]="!placeOrderForm.valid" (click)="Submit()"  mat-button cdkFocusInitial>Ok</button>
+  <button [disabled]="(!placeOrderForm.valid || !subTotal)" (click)="Submit()"  mat-button cdkFocusInitial>Ok</button>
 </mat-dialog-actions>

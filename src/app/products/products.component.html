@@ -18,7 +18,7 @@
  @if(userRole=='capturer') {
       <!-- <button (click)="EditProduct(element)" mat-button>Edit Product</button>  -->
       <button (click)="AssignVendor(element)" [id]="'assign-product-'+ i" mat-raised-button color="primary"  mat-button>Assign New Vendor</button>
-      <button  mat-button>View Vendors</button>
+      <!-- <button  mat-button>View Vendors</button> -->
     } @else if(userRole=='client'){
      <button (click)="PlaceOrder(element)" mat-button>Place Order</button> 
     }@else if(userRole=='vendor'){
@@ -36,19 +36,7 @@
       
      </td>
   </ng-container>
-<!-- 
-  <ng-container matColumnDef="vendor">
-    <th mat-header-cell *matHeaderCellDef> Vendor </th>
-    <td mat-cell *matCellDef="let element"> {{element.vendor.name}} </td>
-     <td mat-footer-cell class="mat-elevation-z0" *matFooterCellDef></td>
-  </ng-container>
 
-  
-  <ng-container matColumnDef="price">
-    <th mat-header-cell *matHeaderCellDef> Price </th>
-    <td mat-cell *matCellDef="let element"> {{element.price}} </td>
-    <td mat-footer-cell class="mat-elevation-z0" *matFooterCellDef></td>
-  </ng-container> --> -->
 
   
 
@@ -58,10 +46,5 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;;let i = index"></tr>
   <tr mat-footer-row [hidden]="!showFooter" class="mat-elevation-z0" *matFooterRowDef="displayedColumns;"></tr>
 </table>
-
-<!-- figure out how to just take away elevation from footer -->
- <!-- <button (click)="AddUser()"  mat-raised-button color="primary"  mat-button>Assign Vendor</button>
- <button (click)="AddProduct()"  mat-raised-button color="primary"  mat-button>Add Product</button>
- <button (click)="AddProduct()"  mat-raised-button color="primary"  mat-button>Assign Vendor</button> -->
 
 </body>

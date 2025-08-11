@@ -6,9 +6,9 @@
 <mat-form-field>
     <mat-label></mat-label>
     @if(action =='add'){
-    <input data-testid="add-product-name" formControlName="name"  (onkeyup)="OnKeyup($event)"  matInput />
+    <input data-testid="add-product-name" formControlName="name"    matInput />
     }@else if(action=='assign'){
-      <input (onkeyup)="OnKeyup($event)" formControlName="name"  [value]="product.name" matInput />
+      <input  formControlName="name"  [value]="product.name" matInput />
     }
   
    

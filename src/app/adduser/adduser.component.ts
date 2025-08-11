@@ -13,12 +13,11 @@ import { FormControl, FormGroup, FormsModule, RequiredValidator, Validators } fr
   styleUrl: './adduser.component.scss'
 })
 export class AdduserComponent implements OnInit {
-name:any
+
 //username:any
-password:any
+
 userSelected:any
 user:User = new User();
-userType:any
 addUserForm: FormGroup = new FormGroup({
   username: new FormControl(''),
   name: new FormControl('',Validators.required),
@@ -40,16 +39,6 @@ ngOnInit(){
 
 Submit(){
 this.addUserForm.get("username")?.setValue(this.addUserForm.value.email);
-  //this.addUserForm.setValue({username})
-//this.user.username = this.user.email
-  //alert("hi")
-  //alert()
-  //console.log(this.product)
-  //alert(this.product.name)
-  //alert(this.product.vendorId)
-  //alert(this.product.price)
-  //alert(this.product.stockonHand)
-  //alert(this.product.price);
   this.userSelected = this.addUserForm.value.userType
   delete this.addUserForm.value.userType
   this.dialogRef.close({user:this.addUserForm.value, userType:this.userSelected});

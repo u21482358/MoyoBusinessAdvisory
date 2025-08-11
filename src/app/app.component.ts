@@ -12,6 +12,7 @@ import { AdduserComponent } from './adduser/adduser.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { any } from 'cypress/types/bluebird';
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 
 
 @Component({
@@ -33,7 +34,8 @@ export class AppComponent {
   activeUserRole:any
   readonly dialog = inject(MatDialog); // in global Modules?
   private _snackBar = inject(MatSnackBar);
-   constructor(private userService:UserService,private router:Router){
+  socialUser?:SocialUser = undefined;
+   constructor(private userService:UserService,private router:Router,private authService:SocialAuthService){
   this.activeUser = userService.activeUserRole;
   this.activeUserRole = userService.activeUserRole;
     }
@@ -52,11 +54,19 @@ export class AppComponent {
 
     LogOut(){
       if(typeof localStorage !== 'undefined'){
+        console.log('log out')
         localStorage.removeItem('token')
-        //localStorage.removeItem('user')
+        localStorage.removeItem('user')
+        this.authService.signOut(true).then(()=>{
+ console.log(localStorage.getItem('token'))
         this.activeUser = null
+//     
+this.router.navigate([''])
+//         })
         //this.router.nav(['/product']);
-        this.router.navigate([''])
+        
+        })
+       
       }
     }
 

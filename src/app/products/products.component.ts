@@ -24,14 +24,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ProductsComponent implements OnInit {
  //dynamic rendering of mat table
-  private _snackBar = inject(MatSnackBar);
- userRole:any = "capturer"
+private _snackBar = inject(MatSnackBar);
+ userRole:any
  btnMessage:any = "Place Order";
  showFooter: boolean = true; // to show footer row
-  readonly dialog = inject(MatDialog); // in global Modules?
-  vendors:any = []
-  user:User = new User();
-
+readonly dialog = inject(MatDialog); // in global Modules?
+vendors:any = []
+displayedColumns: any// = [ 'name','vendor', 'price',"button"];
+footerColumn:string[] = ['button']
+dataSource:any
+products:any
 
 
   constructor(private productService: ProductserviceService,private userService: UserService,private orderService:OrderService) { 
@@ -45,10 +47,7 @@ export class ProductsComponent implements OnInit {
  */
 
 // you can maybe add quantity
-  displayedColumns: any// = [ 'name','vendor', 'price',"button"];
-  footerColumn:string[] = ['button']
-  dataSource:any
-  products:any
+
 
 
  
@@ -57,7 +56,7 @@ public PlaceOrder(product:any) {
     //console.log(element)
     //alert(element.name)
     // API Call
-    this.productService.GetVendorsForProduct(product).subscribe((vendorproducts:any)=>{
+    this.productService.GetVendorsOfferingProduct(product).subscribe((vendorproducts:any)=>{
       console.log(vendorproducts)
  const dialogRef = this.dialog.open(PlaceorderComponent, {
       data: {product:product,vendorproducts:vendorproducts}
@@ -124,6 +123,7 @@ public PlaceOrder(product:any) {
     });
 }
 
+// Gets Vendors from UserService
 public ngAfterViewInit(): void {
 this.userService.vendors.subscribe((res:any)=>{
 
@@ -149,7 +149,7 @@ this.userService.vendors.subscribe((res:any)=>{
     dialogRef.afterClosed().subscribe(result => {
       //console.log(`Dialog result: ${result}`);
       //alert(result.price)
-      alert(result.price)
+      ///alert(result.price)
       if(result){
       this.productService.createProduct(result).subscribe({
         next: (data) => {
@@ -217,22 +217,7 @@ this.userService.vendors.subscribe((res:any)=>{
 }
 
 
-  public GetVendorProducts() {
-    //console.log(element)
-    //alert(element.name)
-this.userService.GetVendorProducts().subscribe((res:any)=>{
-  console.log(res)
-  console.log(res.products)
-  this.products = res.products
-  this.products.forEach((element:any) => {
-    element.vendor = res
-  });
-  //this.ve
-  this.dataSource = this.products
-  console.log(this.products)
-})
-  
-  }
+ 
 
   
 
@@ -248,19 +233,9 @@ public GetProducts() {
     }})
    
   }
-  public GetVendors() {
-  return this.userService.getVendors().subscribe({
-    next: (data:User[]) => {
-     // console.log(data)
-      this.vendors = data
-      console.log(this.vendors);
-    }})
-     console.log(this.vendors);
-  }
 
-  DisplayVendorName(element:any){
-console.log(element)
-  }
+
+ 
 
 
 public ngOnInit(){
@@ -271,24 +246,6 @@ public ngOnInit(){
   this.userRole = this.userService.activeUserRole
   //this.GetVendors()
   console.log(this.userRole)
-  switch(this.userRole){
-    case "capturer":
-      this.GetProducts()
-      
-      break;
-      case "manager":
-        this.GetProducts()
-      
-      break;
-    case "client":
-      this.GetProducts()
-      this.btnMessage = "Place Order";
-      break;
-      case "vendor":
-        //alert("vendor")
-        this.GetVendorProducts()
-       
 
-}
 }
 }

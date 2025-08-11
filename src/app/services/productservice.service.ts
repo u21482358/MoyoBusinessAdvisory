@@ -39,7 +39,7 @@ apiUrl:any = environment.apiUrl + 'Product';
 
         createProduct(prod: any){
           let path = '/post'
-          alert(prod.price)
+          //alert(prod.price)
           if(prod.vendor.products)[
             delete prod.vendor.products
           ]
@@ -48,7 +48,7 @@ apiUrl:any = environment.apiUrl + 'Product';
         return this.httpClient.post(this.apiUrl + path, prod, this.httpOptions)
       }
 
-      GetVendorsForProduct(product:any){
+      GetVendorsOfferingProduct(product:any){
         let path = '/getVendorsOfferingProduct'
         return this.httpClient.post<any[]>(this.apiUrl + path,product, this.httpOptions)
           .pipe(
@@ -59,7 +59,7 @@ apiUrl:any = environment.apiUrl + 'Product';
 
        AssignProductToVendor(prod: any){
           let path = '/assignProductToVendor'
-          alert(prod.price)
+         // alert(prod.price)
           if(prod.vendor.products)[
             delete prod.vendor.products
           ]

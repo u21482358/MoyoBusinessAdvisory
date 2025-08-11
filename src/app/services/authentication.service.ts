@@ -33,6 +33,7 @@ intercept(req: HttpRequest<any>,
     
 
     var jwt2 = localStorage.getItem('token')
+    console.log(jwt2)
   const jwt = JSON.parse(JSON.stringify(localStorage.getItem('token')!)) // wasnt valid Json so just stringified
 cloned = req.clone({
        headers:  req.headers.set("Authorization","Bearer " + jwt)
