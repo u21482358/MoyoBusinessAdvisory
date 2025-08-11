@@ -10,6 +10,7 @@ import { MatListModule } from '@angular/material/list';
 import { UserService } from './services/user.service';
 import { AdduserComponent } from './adduser/adduser.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class AppComponent {
 // https://stackblitz.com/edit/angular-ivy-meopgy?file=src%2Fapp%2Fnavigation%2Fnavigation.component.css
   activeUser:any = null
   readonly dialog = inject(MatDialog); // in global Modules?
+  private _snackBar = inject(MatSnackBar);
    constructor(private userService:UserService,private router:Router){
   this.activeUser = userService.activeUserRole;
     }
@@ -93,11 +95,16 @@ export class AppComponent {
               this.userService.getVendors().subscribe({
                 next: (data) => {
                   this.userService.vendors.next(data)
-                  //console.log(data);
-                  //this.dataSource = data;
+                           this._snackBar.open('Successfully Created Vendor', 'OK', {
+      duration: 2000,
+      panelClass: ['error-snackbar']
+    })
                 },
                 error: (err:any) => {
-                  console.log(err)
+                     this._snackBar.open('Error Failed to Create Vendor', 'OK', {
+      duration: 2000,
+      panelClass: ['error-snackbar']
+    });
                 }
             })
         }
@@ -113,7 +120,15 @@ export class AppComponent {
       public CreateClient(result:any){
        this.userService.createClient(result.user).subscribe({
             next: (data) => {
-            
+                     this._snackBar.open('Successfully created client', 'OK', {
+      duration: 2000,
+      panelClass: ['error-snackbar']
+    })
+        }, error: (err:any) => {
+         this._snackBar.open('Error Failed to Create Client', 'OK', {
+      duration: 2000,
+      panelClass: ['error-snackbar']
+    });
         }
         })
       }
