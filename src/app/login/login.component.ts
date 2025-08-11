@@ -112,7 +112,13 @@ public CreateVendor(result:any){
               //this.vendors = data
               //console.log(data);
               //this.dataSource = data;
-            }
+            },error:(err:any) => {
+    console.log(err)
+    this._snackBar.open('Error Failed to Create Vendor', 'OK', {
+      duration: 2000,
+      panelClass: ['error-snackbar']
+    });
+  }
         })
     }
     })
@@ -121,14 +127,26 @@ public CreateCapturer(result:any){
    this.userService.createCapturer(result.user).subscribe({
         next: (data) => {
         
-    }
+    }, error:(err:any) => {
+    console.log(err)
+    this._snackBar.open('Error Failed to Login', 'OK', {
+      duration: 2000,
+      panelClass: ['error-snackbar']
+    });
+  }
     })
   }
   public CreateClient(result:any){
    this.userService.createClient(result.user).subscribe({
         next: (data) => {
         
-    }
+    }, error:(err:any) => {
+    console.log(err)
+    this._snackBar.open('Error Failed to Create Client', 'OK', {
+      duration: 2000,
+      panelClass: ['error-snackbar']
+    });
+  }
     })
   }
 

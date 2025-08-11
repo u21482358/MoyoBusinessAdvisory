@@ -12,6 +12,7 @@ import { User } from '../Models/User';
 import e from 'express';
 import { AdduserComponent } from '../adduser/adduser.component';
 import { OrderService } from '../services/order.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 //import { OnInit } from '@angular/core';
 
 @Component({
@@ -23,25 +24,14 @@ import { OrderService } from '../services/order.service';
 })
 export class ProductsComponent implements OnInit {
  //dynamic rendering of mat table
+  private _snackBar = inject(MatSnackBar);
  userRole:any = "capturer"
  btnMessage:any = "Place Order";
  showFooter: boolean = true; // to show footer row
   readonly dialog = inject(MatDialog); // in global Modules?
   vendors:any = []
   user:User = new User();
-// ELEMENT_DATA: Product[] = [
-//   {id: 1, name: 'HP Computer',vendor:'HP', stockonHand: '52', price: 8000},
-//   {id: 2, name: 'Dell Computer',vendor:'HP', stockonHand: '60', price: 7000}
-//   // {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-//   // {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-//   // {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-//   // {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-//   // {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-//   // {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-//   // {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-//   // {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-//   // {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-// ];
+
 
 
   constructor(private productService: ProductserviceService,private userService: UserService,private orderService:OrderService) { 
@@ -81,8 +71,15 @@ public PlaceOrder(product:any) {
       if(result){
       this.orderService.PlaceOrder(result).subscribe({
         next: (data:any) => {
+            this._snackBar.open('Order Successfully placed', 'OK', {
+      duration: 2000,
+      panelClass: ['error-snackbar']
+        })
         },error: (err:any) => {
-
+ this._snackBar.open('Error placing order', 'OK', {
+      duration: 2000,
+      panelClass: ['error-snackbar']
+        })
         }
     })
   }
@@ -110,8 +107,15 @@ public PlaceOrder(product:any) {
       this.productService.updateProduct(result).subscribe({
         next: (data) => {
           this.GetProducts()
+            this._snackBar.open('Product Successfully Edited', 'OK', {
+      duration: 2000,
+      panelClass: ['error-snackbar']
+        })
         },error: (err:any) => {
-
+  this._snackBar.open('Error Failed to Edit Product', 'OK', {
+      duration: 2000,
+      panelClass: ['error-snackbar']
+    });
         }
     })
   }
@@ -149,9 +153,16 @@ this.userService.vendors.subscribe((res:any)=>{
       if(result){
       this.productService.createProduct(result).subscribe({
         next: (data) => {
-          this.GetVendorProducts()
+          this.GetProducts()
+            this._snackBar.open('Product Created', 'OK', {
+      duration: 2000,
+      panelClass: ['error-snackbar']
+        })
         },error: (err:any) => {
-
+  this._snackBar.open('Error Failed to Add product', 'OK', {
+      duration: 2000,
+      panelClass: ['error-snackbar']
+    });
         }
     })
   }
@@ -177,8 +188,15 @@ this.userService.vendors.subscribe((res:any)=>{
       if(result){
       this.productService.AssignProductToVendor(result).subscribe({
         next: (data) => {
+           this._snackBar.open('Product Assigned to Vendor', 'OK', {
+      duration: 2000,
+      panelClass: ['error-snackbar']
+        })
         },error: (err:any) => {
-
+  this._snackBar.open('Error Failed to Assign Product to Vendor', 'OK', {
+      duration: 2000,
+      panelClass: ['error-snackbar']
+    });
         }
     })
   }
@@ -216,67 +234,8 @@ this.userService.GetVendorProducts().subscribe((res:any)=>{
   
   }
 
-  public AddUser() {
-    //console.log(element)
-    //alert(element.name)
-    this.GetVendors()
-    const dialogRef = this.dialog.open(AdduserComponent, {
-    });
-   // alert()
-    dialogRef.afterClosed().subscribe(result => {
-      //console.log(`Dialog result: ${result}`);
-      //alert(result.price)
-      //alert(result)
-      console.log(result)
-      //this.userRole = result.userType
-        switch(result.userType){
-    case "client":
-      this.CreateClient(result);
-      break;
-    case "vendor":
-     this.CreateVendor(result);
-      break;
-    case "capturer":
-      this.CreateCapturer(result);
-      //this.user.userType = 'vendor';
-      break;
-    default:
-      //this.user.userType = 'client'; // Default to client if no selection
-  }
-      if(result){
-     
-  }
+  
 
-     // this.GetProducts();
-    });
-}
-public CreateVendor(result:any){
-   this.userService.createVendor(result.user).subscribe({
-        next: (data) => {
-          this.userService.getVendors().subscribe({
-            next: (data) => {
-              this.vendors = data
-              //console.log(data);
-              //this.dataSource = data;
-            }
-        })
-    }
-    })
-}
-public CreateCapturer(result:any){
-   this.userService.createCapturer(result.user).subscribe({
-        next: (data) => {
-        
-    }
-    })
-  }
-  public CreateClient(result:any){
-   this.userService.createClient(result.user).subscribe({
-        next: (data) => {
-        
-    }
-    })
-  }
 
 
 public GetProducts() {

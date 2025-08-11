@@ -11,6 +11,7 @@ import { UserService } from '../services/user.service';
 import { DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { OrderconfirmationComponent } from '../orderconfirmation/orderconfirmation.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-order',
@@ -20,7 +21,7 @@ import { OrderconfirmationComponent } from '../orderconfirmation/orderconfirmati
   styleUrl: './order.component.scss'
 })
 export class OrderComponent implements OnInit {
-
+ private _snackBar = inject(MatSnackBar);
     dataSource:any
     activeUserRole:any
       readonly dialog = inject(MatDialog); // in global Modules?
@@ -81,10 +82,20 @@ OpenConfirmationDialog(element:any,id:any){
       if(result){
       this.orderService.UpdateOrder(this.order).subscribe({
         next: (data:any) => {
+           this._snackBar.open('Order status successfully updated', 'OK', {
+      duration: 2000,
+      panelClass: ['error-snackbar']
+        })
            this.orderService.getOrders().subscribe((data: any) => {
                  this.dataSource = data;
            })
           
+        },error: (err:any) => {
+
+          this._snackBar.open('Error updating order status', 'OK', {
+            duration: 2000,
+            panelClass: ['error-snackbar']
+          })
         }
     })
  }
