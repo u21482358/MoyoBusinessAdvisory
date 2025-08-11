@@ -18,16 +18,13 @@ import { error } from 'console';
 import { MatDialog } from '@angular/material/dialog';
 import { AdduserComponent } from '../adduser/adduser.component';
 import { InjectionToken } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 //import { BROWSER_STORAGE } from '../services/browserservice.service';
 
 
 
 // https://stackoverflow.com/questions/73255003/how-bind-angular-component-function-to-google-signin-button
-declare global {
-  interface Window {
-    onGoogleSignIn: (response: any) => void;
-  }
-}
+
 
 @Component({
   selector: 'app-login',
@@ -42,7 +39,7 @@ declare global {
 
 
 export class LoginComponent implements OnInit {
-   //localStorage = new InjectionToken<Storage>('Local Storage');
+   private _snackBar = inject(MatSnackBar);
   loginForm: FormGroup = new FormGroup({
     email: new FormControl('',[Validators.required,Validators.email]),
     password: new FormControl('',[Validators.required,Validators.minLength(6)]),
@@ -64,19 +61,20 @@ this.loginForm.value.username = this.loginForm.value.email
         localStorage.setItem('token', data.token);
         this.router.navigate(['/product']);
          }
-      }
-
-  })
-    
-    
-    //console.log("Fuck")
+      },
+      error:(err:any) => {
+    console.log(err)
+    this._snackBar.open('Error Failed to Login', 'OK', {
+      duration: 2000,
+      panelClass: ['error-snackbar']
+    });
   }
 
-    onGoogleSignIn(res: any) {
-      console.log("google function")
-    console.log(res);
-
+  });
   }
+
+
+ 
 
 SignUp(){
  const dialogRef = this.dialog.open(AdduserComponent, {
@@ -154,6 +152,10 @@ public CreateCapturer(result:any){
         console.log(res)
 this.router.navigate(['/product'])
       },(error)=>{
+        this._snackBar.open('Error Failed to Login', 'OK', {
+      duration: 2000,
+      panelClass: ['error-snackbar']
+    });
         console.log(error)
       })
    },(error:any) => {

@@ -81,6 +81,8 @@ public PlaceOrder(product:any) {
       if(result){
       this.orderService.PlaceOrder(result).subscribe({
         next: (data:any) => {
+        },error: (err:any) => {
+
         }
     })
   }
@@ -91,12 +93,7 @@ public PlaceOrder(product:any) {
    
 }
 
-// public FetchPriceAndQuantity(element:any){
-//   this.productService.GetVendorsForProduct(this.product).subscribe((vendorproducts:any)=>{
-//       console.log(vendorproducts)
-//       this.dataSource = vendorproducts
-//     });
-//   }
+
 
   public EditProduct(element:any,isQuantityEdited: boolean) {
     //console.log(element)
@@ -112,12 +109,25 @@ public PlaceOrder(product:any) {
       if(result){
       this.productService.updateProduct(result).subscribe({
         next: (data) => {
+          this.GetProducts()
+        },error: (err:any) => {
+
         }
     })
   }
 
      // this.GetProducts();
     });
+}
+
+public ngAfterViewInit(): void {
+this.userService.vendors.subscribe((res:any)=>{
+
+  this.vendors = res
+  console.log(this.vendors);
+  //this.dataSource = this.vendors
+  console.log(this.products)
+})
 }
 
 
@@ -139,7 +149,9 @@ public PlaceOrder(product:any) {
       if(result){
       this.productService.createProduct(result).subscribe({
         next: (data) => {
-          this.GetProducts()
+          this.GetVendorProducts()
+        },error: (err:any) => {
+
         }
     })
   }
@@ -165,6 +177,8 @@ public PlaceOrder(product:any) {
       if(result){
       this.productService.AssignProductToVendor(result).subscribe({
         next: (data) => {
+        },error: (err:any) => {
+
         }
     })
   }

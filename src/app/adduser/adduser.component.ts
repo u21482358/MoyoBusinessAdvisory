@@ -27,7 +27,9 @@ addUserForm: FormGroup = new FormGroup({
     password: new FormControl('',[Validators.required,Validators.minLength(6)]),
   });
  readonly dialogRef = inject(MatDialogRef<AdduserComponent>);
-userTypes = [{id:1,name:'client'},{id:2,name:'capturer'}, {id:3,name:'vendor'}]; // Example user types, replace with actual data
+//userTypes = [{id:1,name:'client'},{id:2,name:'capturer'}, {id:3,name:'vendor'}]; // Example user types, replace with actual data
+
+userTypes = [{id:1,name:'client'}, {id:2,name:'vendor'}]; // Example user types, replace with actual data
 nNoClick(): void {
     this.dialogRef.close();
 }

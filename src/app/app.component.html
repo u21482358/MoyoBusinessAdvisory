@@ -33,7 +33,7 @@
   <mat-sidenav [mode]="'over'" #drawer class="sidenav" mode="side">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item >Add User</a>
+      <a mat-list-item (click)="AddUser();drawer.close()">Add User</a>
       <a mat-list-item (click)="LogOut();drawer.close()" href="#">Sign Out</a>
       <!-- <a mat-list-item href="#">Link 3</a> -->
     </mat-nav-list>

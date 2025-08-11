@@ -111,7 +111,9 @@ Submit(){
   console.log(this.selectedVendor)
   console.log(this.product)
   console.log(this.vendorproduct)
+
   this.vendorproduct = this.addProductForm.value
+  this.product.name = this.addProductForm.get('name')?.value
   this.vendorproduct.product = this.product
   
  console.log(this.vendorproduct)

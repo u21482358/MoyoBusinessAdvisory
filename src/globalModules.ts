@@ -13,6 +13,7 @@ import {MatTableModule} from '@angular/material/table';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormControl, ReactiveFormsModule} from '@angular/forms';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 //import { FormsModule } from '@angular/forms';
 //
@@ -47,7 +48,9 @@ export const globalModules = [
   MatBadgeModule,
   MatSelect,
   MatOption,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  MatSnackBarModule
+  
 
   //FormControl,
   //FormsModule

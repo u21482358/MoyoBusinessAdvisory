@@ -18,6 +18,7 @@
  @if(userRole=='capturer') {
       <!-- <button (click)="EditProduct(element)" mat-button>Edit Product</button>  -->
       <button (click)="AssignVendor(element)" [id]="'assign-product-'+ i" mat-raised-button color="primary"  mat-button>Assign New Vendor</button>
+      <button  mat-button>View Vendors</button>
     } @else if(userRole=='client'){
      <button (click)="PlaceOrder(element)" mat-button>Place Order</button> 
     }@else if(userRole=='vendor'){
@@ -29,7 +30,7 @@
 
       @if(userRole=='capturer'){
 <button (click)="AddProduct()" data-testid='add-product'  mat-raised-button color="primary"  mat-button>Add Product</button>
- <button style="margin-right: 5px;" mat-raised-button color="primary" (click)="AddUser()"  mat-button>Add User</button>
+ <!-- <button style="margin-right: 5px;" mat-raised-button color="primary" (click)="AddUser()"  mat-button>Add User</button> -->
       }
      
       

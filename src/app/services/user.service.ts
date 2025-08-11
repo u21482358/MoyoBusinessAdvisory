@@ -9,6 +9,7 @@ import { environment } from '../../environments/environment';
 })
 export class UserService {
 public showNavigation:BehaviorSubject<any> = new BehaviorSubject<any>(false);
+public vendors:BehaviorSubject<any> = new BehaviorSubject<any>(null);
 public activeUserRole:any
   apiUrl:any = environment.apiUrl + 'User';
     constructor(private httpClient: HttpClient) { }

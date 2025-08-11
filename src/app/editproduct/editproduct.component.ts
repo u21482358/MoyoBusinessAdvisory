@@ -71,6 +71,8 @@ quantityValidator(control: AbstractControl): { [key: string]: boolean } | null {
 Submit(){
   // better to put the product so you dont have to run this.
   //this.product.vendor = this.vendors.find((vendor:any) => vendor.id === this.product.vendor.id);
+  this.vendorproduct.price = this.addProductForm.get('price')?.value;
+   this.vendorproduct.quantityOnHand = this.addProductForm.get('quantityOnHand')?.value;
   console.log(this.product)
   this.dialogRef.close(this.vendorproduct);
 }
