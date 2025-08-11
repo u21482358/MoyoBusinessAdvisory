@@ -24,7 +24,7 @@ public activeUserRole:any
         Login(user: any) {
           console.log(this.apiUrl)
           let path = '/Login'
-          alert(user.name)
+         // alert(user.name)
           return this.httpClient.post(this.apiUrl + path, user, this.httpOptions)
         }
 
