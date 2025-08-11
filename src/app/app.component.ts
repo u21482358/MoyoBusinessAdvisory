@@ -11,6 +11,7 @@ import { UserService } from './services/user.service';
 import { AdduserComponent } from './adduser/adduser.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { any } from 'cypress/types/bluebird';
 
 
 @Component({
@@ -29,10 +30,12 @@ export class AppComponent {
 // https://stackblitz.com/edit/mat-toolbar-with-sidenav?file=src%2Fapp%2Fnavbar%2Fnavbar.component.html
 // https://stackblitz.com/edit/angular-ivy-meopgy?file=src%2Fapp%2Fnavigation%2Fnavigation.component.css
   activeUser:any = null
+  activeUserRole:any
   readonly dialog = inject(MatDialog); // in global Modules?
   private _snackBar = inject(MatSnackBar);
    constructor(private userService:UserService,private router:Router){
   this.activeUser = userService.activeUserRole;
+  this.activeUserRole = userService.activeUserRole;
     }
     Submit(){
       console.log("Submit button clicked");
@@ -41,7 +44,9 @@ export class AppComponent {
   
     ngOnInit(){
   this.userService.showNavigation.subscribe((next)=>{
+    console.log(next)
     this.activeUser = next
+    this.activeUserRole = this.userService.activeUserRole
   })
     }
 
