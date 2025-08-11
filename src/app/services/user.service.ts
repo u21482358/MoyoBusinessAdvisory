@@ -30,19 +30,19 @@ public activeUserRole:any
 
         createVendor(user: any) {
           let path = '/postVendor'
-          alert(user.name)
+          //alert(user.name)
           return this.httpClient.post(this.apiUrl + path, user, this.httpOptions)
         }
 
         createClient(user: any) {
           let path = '/postClient'
-          alert(user.name)
+          //alert(user.name)
           return this.httpClient.post(this.apiUrl + path, user, this.httpOptions)
         }
 
         createCapturer(user: any) { // the default user type as the manager will be created by default
           let path = '/postCapturer'
-          alert(user.name)
+          //alert(user.name)
           return this.httpClient.post(this.apiUrl + path, user, this.httpOptions)
         }
 
