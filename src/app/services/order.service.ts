@@ -17,10 +17,14 @@ apiUrl:any = environment.apiUrl + 'Order';
          })
           }
 
-  PlaceOrder(vendorProduct:any){
+  PlaceOrder(productOrder:any){
     let path = '/post'
+    console.log(productOrder.VendorProduct)
+    productOrder.VendorProduct.vendorId = productOrder.VendorProduct.vendor.id
+    console.log(productOrder)
+
    // vendorProduct.orderStatus = 
-    return this.httpClient.post(this.apiUrl + path, vendorProduct, this.httpOptions)
+    return this.httpClient.post(this.apiUrl + path, productOrder, this.httpOptions)
   }
 
     UpdateOrder(productOrder:any){

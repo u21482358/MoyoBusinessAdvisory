@@ -101,6 +101,7 @@ ngOnInit(){
 Submit(){
  this.productorder.numberOfItems = this.placeOrderForm.get('quantity')?.value;
   this.selectedVendorProduct.product = this.product
+  this.selectedVendorProduct.productId = this.product.id
   delete this.selectedVendorProduct.vendor.products // could delete by casting to object without that variable?
   //this.selectedVendorProduct.vendo = this.selectedVendor;
   console.log(this.selectedVendorProduct)
