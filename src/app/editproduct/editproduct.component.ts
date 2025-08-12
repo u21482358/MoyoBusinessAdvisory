@@ -3,12 +3,13 @@ import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef } fro
 import { PlaceorderComponent } from '../placeorder/placeorder.component';
 import { Product } from '../Models/Product';
 import { globalModules } from '../../globalModules';
-import { AbstractControl, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormsModule, Validators,ReactiveFormsModule } from '@angular/forms';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 @Component({
   selector: 'app-editproduct',
   standalone: true,
-  imports: [globalModules,MatDialogActions,MatDialogContent,FormsModule],
+  imports: [globalModules,MatDialogActions,MatDialogContent,FormsModule,ReactiveFormsModule,CurrencyMaskModule],
   templateUrl: './editproduct.component.html',
   styleUrl: './editproduct.component.scss'
 })
@@ -19,7 +20,16 @@ export class EditproductComponent implements OnInit {
 
 
 //product:any
-
+amountOptions = {
+        align: 'right',
+        allowNegative: false,
+        allowZero: true,
+        decimal: '.',
+        precision: 2,
+        prefix: 'R',
+        suffix: '',
+        //thousands: '.'
+    };
 message:any
 readonly dialogRef = inject(MatDialogRef<EditproductComponent>);
 readonly data = inject<any>(MAT_DIALOG_DATA);

@@ -7,12 +7,14 @@ import { AbstractControl, FormControl, FormGroup, FormsModule, Validators } from
 import { User } from '../Models/User';
 import { MatSelectChange } from '@angular/material/select';
 import { VendorProduct } from '../Models/VendorProduct';
+import { DecimalPipe } from '@angular/common';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 
 @Component({
   selector: 'app-addproduct',
   standalone: true,
-  imports: [globalModules,MatDialogActions,MatDialogContent,FormsModule],
+  imports: [globalModules,MatDialogActions,MatDialogContent,FormsModule,CurrencyMaskModule],
   templateUrl: './addproduct.component.html',
   styleUrl: './addproduct.component.scss'
 })
@@ -31,11 +33,25 @@ action = this.data.action
 existingProducts:any
 
 
+ amountOptions = {
+        align: 'right',
+        allowNegative: false,
+        allowZero: true,
+        decimal: '.',
+        precision: 2,
+        prefix: 'R',
+        suffix: '',
+        //thousands: '.'
+    };
+constructor(private decimalPipe: DecimalPipe){
+
+};
+
 //https://stackoverflow.com/questions/63953338/angular-forms-integer-validator/63953423
 addProductForm: FormGroup = new FormGroup({
   name: new FormControl('',Validators.required),
       vendor: new FormControl('',Validators.required),
-     price: new FormControl('',[Validators.required]),
+   price: new FormControl('',[Validators.required]),
       quantityOnHand: new FormControl('',[Validators.required, Validators.pattern("^[0-9]*$"),this.quantityValidator]),
   });
 
@@ -89,7 +105,15 @@ Submit(){
 this.dialogRef.close(this.vendorproduct);
 }
 
-  
+ngAfterViewInit() {
 
+//   this.addProductForm.get('price')?.valueChanges.subscribe(value => {
+// console.log(value)
+          
+//          value = this.decimalPipe.transform(value, '1.2-2');
+//          this.addProductForm.get('price')?.setValue(value)
+//   //console.log(value)
+//   })
 
+}
 }

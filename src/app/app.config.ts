@@ -7,9 +7,10 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AuthenticationService } from './services/authentication.service';
 import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { DecimalPipe } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideAnimationsAsync(),provideHttpClient(withInterceptorsFromDi()),  {provide:HTTP_INTERCEPTORS,useClass:AuthenticationService,multi:true},
+  providers: [provideRouter(routes),DecimalPipe, provideAnimationsAsync(),provideHttpClient(withInterceptorsFromDi()),  {provide:HTTP_INTERCEPTORS,useClass:AuthenticationService,multi:true},
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

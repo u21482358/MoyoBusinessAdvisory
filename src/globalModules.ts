@@ -14,6 +14,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormControl, ReactiveFormsModule} from '@angular/forms';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 //import { FormsModule } from '@angular/forms';
 //
@@ -49,8 +50,8 @@ export const globalModules = [
   MatSelect,
   MatOption,
   ReactiveFormsModule,
-  MatSnackBarModule
-  
+  MatSnackBarModule,
+  CurrencyMaskModule
 
   //FormControl,
   //FormsModule

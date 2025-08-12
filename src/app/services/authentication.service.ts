@@ -74,6 +74,7 @@ cloned = req.clone({
         catchError((err) =>{
           { // just check numbers of errors for client side and server side...
              this.userService.showNavigation.next(false)
+             this.router.navigate(['']);
             reject(false) // check actual codes and maybe do this differently
             bool=false
          

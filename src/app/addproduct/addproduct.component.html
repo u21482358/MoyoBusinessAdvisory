@@ -34,7 +34,7 @@
   <mat-form-field>
     
     <mat-label>Price</mat-label>
-     <input type="number" matInput data-testid="add-product-price" formControlName="price"  />
+     <input currencyMask type="text"  [options]="amountOptions" matInput data-testid="add-product-price"  formControlName="price"  />
    
   </mat-form-field>
 <br>
