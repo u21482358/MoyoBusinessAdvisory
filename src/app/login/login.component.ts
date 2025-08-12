@@ -94,10 +94,15 @@ this.loginForm.value.username = this.loginForm.value.email
           
         }
 
-      })
+      },(error:any)=>{
+           this._snackBar.open('Error Failed to Login', 'OK', {
+      duration: 2000,
+      panelClass: ['error-snackbar']
+        })
+        })
     }
   },(error)=>{
-        this._snackBar.open('Error Failed to Login', 'OK', {
+        this._snackBar.open('Error Failed to use AuthService', 'OK', {
       duration: 2000,
       panelClass: ['error-snackbar']
     });
